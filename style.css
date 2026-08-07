@@ -530,6 +530,8 @@ footer {
     font-weight: bold; /* خط عريض Bold */
     font-size: 16px;
 }
-
+#orderBox {
+    display: none;
+}
 
 }
