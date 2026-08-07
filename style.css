@@ -12,7 +12,23 @@ body {
     line-height: 1.8;
 }
 
+let selectedProduct = "";
 
+function showOrder(productName) {
+
+    selectedProduct = productName;
+
+    document.getElementById("selectedProduct").innerText = productName;
+
+    const box = document.getElementById("orderBox");
+
+    box.style.display = "block";
+
+    box.scrollIntoView({
+        behavior: "smooth"
+    });
+
+}
 
 /* Navbar */
 
