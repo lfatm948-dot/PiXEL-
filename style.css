@@ -364,6 +364,55 @@ footer {
 
 }
 
+/* Mobile */
+
+@media (max-width: 768px) {
+
+
+    nav {
+
+        padding: 15px 5%;
+
+    }
+
+
+
+    .menu {
+
+        display: none;
+
+    }
+
+
+
+    .hamburger {
+
+        display: block;
+
+        font-size: 28px;
+
+        color: #7b2cff;
+
+    }
+
+
+
+    header h1 {
+
+        font-size: 30px;
+
+    }
+
+
+
+    header p {
+
+        font-size: 17px;
+
+    }
+
+
+
 
 /* تنسيق قسم نموذج الطلب */
 .order-box {
@@ -468,55 +517,6 @@ footer {
 .order-box button:active {
     transform: scale(0.98);
 }
-
-
-
-/* Mobile */
-
-@media (max-width: 768px) {
-
-
-    nav {
-
-        padding: 15px 5%;
-
-    }
-
-
-
-    .menu {
-
-        display: none;
-
-    }
-
-
-
-    .hamburger {
-
-        display: block;
-
-        font-size: 28px;
-
-        color: #7b2cff;
-
-    }
-
-
-
-    header h1 {
-
-        font-size: 30px;
-
-    }
-
-
-
-    header p {
-
-        font-size: 17px;
-
-    }
 
 
 
