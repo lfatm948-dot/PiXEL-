@@ -336,6 +336,34 @@ header p {
 }
 
 
+/* هذا ينسق زر تأكيد الطلب داخل صندوق الطلب فقط */
+.order-box button {
+    width: 100%;
+    background: linear-gradient(135deg, #7b2cff, #5c19d6); /* تدرج لوني يعطي عمق */
+    color: white;
+    border: none;
+    padding: 18px; /* أكبر قليلاً */
+    border-radius: 15px; /* حواف أكثر دائرية */
+    font-size: 20px; /* نص أكبر وأوضح */
+    font-weight: 800; /* خط سميك */
+    cursor: pointer;
+    transition: all 0.4s ease;
+    margin-top: 15px;
+    box-shadow: 0 8px 20px rgba(123, 44, 255, 0.4); /* ظل أقوى وأوضح */
+    text-transform: uppercase; /* لجعل النص يبدو أكثر رسمية */
+}
+
+/* تأثير عند مرور الماوس */
+.order-box button:hover {
+    background: linear-gradient(135deg, #5c19d6, #7b2cff);
+    transform: scale(1.03); /* يتوسع قليلاً بدل أن يرتفع */
+    box-shadow: 0 12px 25px rgba(123, 44, 255, 0.5);
+}
+
+/* تأثير الضغط على الزر */
+.order-box button:active {
+    transform: scale(0.98);
+}
 
 
 
@@ -450,6 +478,11 @@ footer {
         padding: 15px;
 
     }
+.alert-text {
+    color: #ff3333; /* لون أحمر واضح وبارز */
+    font-weight: bold; /* خط عريض Bold */
+    font-size: 16px;
+}
 
 
 }
