@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Pixel Store</title>
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+
+<nav>
+
+<div class="logo-text">
+PIXEL 💜
+</div>
+
+
+<div class="menu">
+
+<a href="#">
+الرئيسية
+</a>
+
+<a href="#about">
+من نحن
+</a>
+
+</div>
+
+
+<div class="hamburger" onclick="openMenu()">
+☰
+</div>
+
+</nav>
+
+
+
+
+<header>
+
+<a href="https://imgbb.com/"><img src="https://i.ibb.co/n8KW2R74/Blue-Modern-Technology-Company-Logo.png" alt="Blue Modern Technology Company Logo" border="0"></a>
+
+<h1>
+مرحبًا بك في PIXEL 💜
+</h1>
+
+
+<p>
+وجهتك الأولى في صناعة المحتوى
+</p>
+
+
+</header>
+
+
+
+
+
+<section class="products">
+
+
+<h2>
+منتجاتنا
+</h2>
+
+
+
+
+
+<div class="product-card">
+
+
+<img src="https://i.ibb.co/gZv1GjP8/IMG-1181.jpg">
+
+
+<h3>
+ترايبود Plokama
+</h3>
+
+
+
+<pre> ✓ حديد ومتين
+✓ يصل ارتفاع 2متر 
+✓ ريموت تحكم عن بعد
+✓ حقيبة للترايبود 
+</pre>
+
+<h4>
+160 د.ل
+</h4>
+
+
+<button onclick="showOrder('ترايبود Plokama')">
+اطلب الآن
+</button>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="product-card">
+
+
+<img src="https://i.ibb.co/2YfCGHMg/IMG-1184.jpg">
+
+
+<h3>
+إضاءة Plokama
+</h3>
+
+
+
+  <pre> 
+✓ إضاءة SMD LED RGB 
+✓ تحكم في السطوع وحرارة اللون
+✓ ستاند بطول 2 متر
+✓ ضمان6أشهر
+</pre>
+  
+  
+
+
+<h4>
+245 د.ل
+</h4>
+
+
+<button onclick="showOrder('إضاءة Plokama')">
+اطلب الآن
+</button>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="product-card">
+
+
+<img src="https://i.ibb.co/DD1DP10H/IMG-1182.webp">
+
+
+<h3>
+مايك Plokama
+</h3>
+
+<pre> 
+✓ حجم صغير
+2x mic ✓ 
+✓ علبة باور بنك
+✓ شاشة لعرض حالة الشحن
+✓ ضمان 6أشهر
+</pre>
+
+<h4>
+325 د.ل
+</h4>
+
+
+<button onclick="showOrder('مايك Plokama')">
+اطلب الآن
+</button>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="product-card">
+
+
+<img src="https://i.ibb.co/KxQ9cWLR/IMG-1183.webp">
+
+
+<h3>
+إضاءة Plokama U160
+</h3>
+
+
+
+<pre>✓ إضاءة RGB متعددة الألوان
+✓ تحكم كامل في السطوع وحرارة اللون
+✓ بطارية تدوم حتى ساعتين
+✓ تركب على الموبايل، الكاميرا والترايبود
+</pre>
+
+
+<h4>
+115 د.ل
+</h4>
+
+
+<button onclick="showOrder('إضاءة Plokama U160')">
+اطلب الآن
+</button>
+
+
+</div>
+
+
+
+
+
+
+<!-- نموذج الطلب -->
+
+<div id="orderBox" class="order-box">
+
+
+<h2>
+طلب المنتج 💜
+</h2>
+
+
+<p>
+المنتج:
+<span id="selectedProduct"></span>
+</p>
+
+
+
+<input id="name" type="text" placeholder="الاسم">
+
+
+<input id="phone" type="tel" placeholder="رقم الهاتف">
+
+
+<input id="location" type="text" placeholder="المكان">
+
+
+
+<select id="payment">
+
+
+<option>
+كاش
+</option>
+
+
+<option>
+بطاقة مصرفية
+</option>
+
+
+<option>
+حوالة مصرفية
+</option>
+
+
+</select>
+
+
+
+<button onclick="sendWhatsApp()">
+تأكيد الطلب
+</button>
+
+
+</div>
+
+
+
+
+
+
+
+
+<section id="about" class="about">
+
+
+<h2>
+عن PIXEL 💜
+</h2>
+
+
+<p>
+متجر إلكتروني جديد متخصص في بيع معدات التصوير وصناعة المحتوى.
+
+نهدف إلى توفير أدوات عملية تساعد صناع المحتوى والمصورين على تطوير جودة تصويرهم، مع تجربة شراء سهلة ومنتجات مختارة بعناية.
+
+<br><br>
+
+لأننا نؤمن أن التفاصيل الصغيرة تصنع الفرق ✨
+</p>
+
+
+</section>
+
+
+
+
+
+
+
+<footer>
+
+<p>
+© 2026 Pixel Store 💜
+</p>
+
+</footer>
+
+
+<script src="script.js"></script>
+
+
+</body>
+
+</html>
