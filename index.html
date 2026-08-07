@@ -12,51 +12,25 @@
 
 <body>
 
-
 <nav>
+    <div class="logo-text">PIXEL 💜</div>
+    
+    <div class="menu">
+        <a href="#">الرئيسية</a>
+        <a href="#about">من نحن</a>
+    </div>
 
-<div class="logo-text">
-PIXEL 💜
-</div>
-
-
-<div class="menu">
-
-<a href="#">
-الرئيسية
-</a>
-
-<a href="#about">
-من نحن
-</a>
-
-</div>
-
-
-<div class="hamburger" onclick="openMenu()">
-☰
-</div>
-
+    <div class="hamburger" onclick="openMenu()">☰</div>
 </nav>
 
-
-
-
 <header>
-
-<a href="https://imgbb.com/"><img src="https://i.ibb.co/n8KW2R74/Blue-Modern-Technology-Company-Logo.png" alt="Blue Modern Technology Company Logo" border="0"></a>
-
-<h1>
-مرحبًا بك في PIXEL 💜
-</h1>
-
-
-<p>
-وجهتك الأولى في صناعة المحتوى
-</p>
-
-
+    <!-- أضفنا كلاس logo هنا عشان نتحكم بحجمه بالسي أس إس بسهولة -->
+    <img src="https://i.ibb.co/n8KW2R74/Blue-Modern-Technology-Company-Logo.png" alt="Pixel Store Logo" class="logo">
+    
+    <h1>مرحبًا بك في PIXEL 💜</h1>
+    <p>وجهتك الأولى في صناعة المحتوى</p>
 </header>
+
 
 
 
@@ -269,6 +243,9 @@ PIXEL 💜
 </select>
 
 
+<p>
+    ملاحظة: <span class="alert-text">عند الضغط على زر اتمام الطلب سيتم تحويلك مباشرة إلى محادثة الواتساب لإتمام طلبك</span>
+</p>
 
 <button onclick="sendWhatsApp()">
 تأكيد الطلب
