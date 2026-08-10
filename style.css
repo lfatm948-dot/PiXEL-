@@ -102,40 +102,80 @@ header img {
     margin-bottom: 10px;
 }
 
-
-
-
 .logo {
-
     width: 180px;
-
     height: 180px;
-
     object-fit: contain;
-
     margin-bottom: 20px;
 
+    animation: logoIntro 1.8s ease-out forwards;
 }
-
 
 
 header h1 {
-
     font-size: 38px;
-
     color: white !important;
 
-}
+    opacity: 0;
+    transform: scale(0.5);
 
+    animation: textIntro 0.8s ease-out 1.5s forwards;
+}
 
 
 header p {
-
     font-size: 20px;
-
     color: rgba(255,255,255,0.85);
 
+    opacity: 0;
+    transform: scale(0.5);
+
+    animation: textIntro 0.8s ease-out 2s forwards;
 }
+
+
+/* حركة اللوقو */
+@keyframes logoIntro {
+
+    0% {
+        opacity: 0;
+        transform: scale(2.8) translateY(120px);
+    }
+
+    40% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+
+}
+
+
+/* حركة النصوص */
+@keyframes textIntro {
+
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+
+    70% {
+        opacity: 1;
+        transform: scale(1.08);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+}
+
+
+
 
 
 
@@ -549,75 +589,5 @@ footer {
 #orderBox {
     display: none;
 }
-
-}
-/* =========================
-   تأثير دخول الموقع
-========================= */
-
-/* اللوقو */
-.logo {
-    animation: logoIntro 1.6s ease-out forwards;
-}
-
-/* الترحيب */
-header h1 {
-    opacity: 0;
-    transform: scale(0.6);
-    animation: textIntro 0.8s ease-out 1.3s forwards;
-}
-
-/* الوصف */
-header p {
-    opacity: 0;
-    transform: scale(0.6);
-    animation: textIntro 0.8s ease-out 1.8s forwards;
-}
-
-/* منتجاتنا */
-.products h2 {
-    opacity: 0;
-    transform: scale(0.6);
-    animation: textIntro 0.8s ease-out 2.4s forwards;
-}
-
-
-/* حركة اللوقو */
-@keyframes logoIntro {
-
-    0% {
-        opacity: 0;
-        transform: scale(2.5) translateY(120px);
-    }
-
-    50% {
-        opacity: 1;
-    }
-
-    100% {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-    }
-
-}
-
-
-/* حركة النصوص */
-@keyframes textIntro {
-
-    0% {
-        opacity: 0;
-        transform: scale(0.6);
-    }
-
-    70% {
-        opacity: 1;
-        transform: scale(1.08);
-    }
-
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
 
 }
