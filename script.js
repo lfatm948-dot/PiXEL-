@@ -127,9 +127,9 @@ window.addEventListener("load", function () {
     const title = document.querySelector(".products h2");
 
     if (title) {
-        title.classList.add("title-intro");
+        setTimeout(function () {
+            title.classList.add("title-intro");
+        }, 2800);
     }
 
 });
-
-    
