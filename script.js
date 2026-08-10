@@ -122,6 +122,14 @@ document.querySelectorAll('.product-card').forEach(card => {
 });
 
 }
+window.addEventListener("load", function () {
 
+    const title = document.querySelector(".products h2");
+
+    if (title) {
+        title.classList.add("title-intro");
+    }
+
+});
 
     
