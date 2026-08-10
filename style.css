@@ -191,15 +191,14 @@ header p {
 }
 
 
-
 .products h2 {
     opacity: 1;
     transform: scale(1);
 }
-.products h2.title-intro {
-    animation: titleIntro 1s ease-out 2.5s forwards;
-}
 
+.products h2.title-intro {
+    animation: titleIntro 1s ease-out forwards;
+}
 
 @keyframes titleIntro {
     0% {
@@ -217,7 +216,6 @@ header p {
         transform: scale(1);
     }
 }
-
 
 /* Cards */
 
