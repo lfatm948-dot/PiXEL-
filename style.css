@@ -192,23 +192,24 @@ header p {
 
 
 
-
-
 .products h2 {
-    opacity: 0 !important;
-    transform: scale(0.5) !important;
-    animation: productsTitleIntro 1s ease-out 2.5s forwards !important;
+    opacity: 1;
+    transform: scale(1);
 }
 
-@keyframes productsTitleIntro {
+.products h2.title-intro {
+    animation: titleIntro 1s ease-out forwards;
+}
+
+@keyframes titleIntro {
     0% {
         opacity: 0;
         transform: scale(0.5);
     }
 
-    60% {
+    70% {
         opacity: 1;
-        transform: scale(1.1);
+        transform: scale(1.08);
     }
 
     100% {
