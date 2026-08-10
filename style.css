@@ -193,31 +193,29 @@ header p {
 
 
 
+
 .products h2 {
-    opacity: 0;
-    transform: scale(0.5);
-    animation: productsTitleIntro 0.8s ease-out 2.5s forwards;
+    opacity: 0 !important;
+    transform: scale(0.5) !important;
+    animation: productsTitleIntro 1s ease-out 2.5s forwards !important;
 }
 
 @keyframes productsTitleIntro {
-
     0% {
         opacity: 0;
         transform: scale(0.5);
     }
 
-    70% {
+    60% {
         opacity: 1;
-        transform: scale(1.08);
+        transform: scale(1.1);
     }
 
     100% {
         opacity: 1;
         transform: scale(1);
     }
-
 }
-
 
 
 /* Cards */
