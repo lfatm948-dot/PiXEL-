@@ -37,6 +37,586 @@ function showOrder(productName) {
   overflow: hidden;
 }
 
+
+
+/* Navbar */
+
+nav {
+    width: 100%;
+    padding: 12px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ffffff;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+
+.logo-text {
+
+    font-size: 28px;
+    font-weight: bold;
+
+    color: #7b2cff;
+
+}
+
+
+
+.menu {
+
+    display: flex;
+    gap: 30px;
+
+}
+
+
+
+.menu a {
+
+    text-decoration: none;
+    color: #333;
+
+    font-size: 18px;
+
+}
+
+
+
+.hamburger {
+
+    display: none;
+
+}
+
+
+
+
+
+/* Header */
+
+
+header {
+    text-align: center;
+    padding: 30px 20px 20px 20px;
+}
+
+header img {
+    width: 180px;
+    height: 180px;
+    object-fit: contain;
+    margin-bottom: 10px;
+}
+
+.logo {
+    width: 180px;
+    height: 180px;
+    object-fit: contain;
+    margin-bottom: 20px;
+
+    animation: logoIntro 1.8s ease-out forwards;
+}
+
+
+header h1 {
+    font-size: 38px;
+    color: white !important;
+
+    opacity: 0;
+    transform: scale(0.5);
+
+    animation: textIntro 0.8s ease-out 1.5s forwards;
+}
+
+
+header p {
+    font-size: 20px;
+    color: rgba(255,255,255,0.85);
+
+    opacity: 0;
+    transform: scale(0.5);
+
+    animation: textIntro 0.8s ease-out 2s forwards;
+}
+
+
+/* حركة اللوقو */
+@keyframes logoIntro {
+
+    0% {
+        opacity: 0;
+        transform: scale(2.8) translateY(120px);
+    }
+
+    40% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+
+}
+
+
+/* حركة النصوص */
+@keyframes textIntro {
+
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+
+    70% {
+        opacity: 1;
+        transform: scale(1.08);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+}
+
+
+
+
+
+
+
+
+/* Products */
+
+
+.products {
+
+    padding: 40px 6%;
+
+}
+
+
+.products h2 {
+    opacity: 0;
+    transform: scale(1);
+}
+
+.products h2.title-intro {
+    animation: titleIntro 1s ease-out forwards;
+}
+
+@keyframes titleIntro {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+
+    70% {
+        opacity: 1;
+        transform: scale(1.08);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Cards */
+
+.product-card {
+    background: white;
+    color: #222; /* رجعت لون النص اللي يناسب متجرك */
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 35px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    text-align: center;
+    opacity: 0;
+    transform: translateY(60px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.product-card.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+}
+
+.product-card {
+
+    background: white;
+
+    max-width: 420px;
+
+    margin: 40px auto;
+
+    padding: 25px;
+
+    border-radius: 25px;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+
+    opacity: 0;
+
+    transform: translateY(60px);
+
+    transition: opacity 0.8s ease, transform 0.8s ease;
+
+}
+
+.product-card.show {
+
+    opacity: 1;
+
+    transform: translateY(0);
+
+}
+
+
+}
+
+
+
+@keyframes fadeUp {
+
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(60px);
+
+    }
+
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+    }
+
+}
+
+
+
+.product-card img {
+
+    width: 100%;
+
+    max-width: 350px;
+
+    height: 300px;
+
+    object-fit: contain;
+
+    border-radius: 15px;
+
+}
+
+
+
+.product-card h3 {
+
+    color: #7b2cff;
+
+    font-size: 25px;
+
+    margin: 15px 0;
+
+}
+
+
+
+.product-card p {
+
+    color: #666;
+
+}
+
+
+.product-card h4 {
+
+    color: #7b2cff;
+
+    font-size: 24px;
+
+    margin: 15px;
+
+}
+.product-card button {
+
+    border: none;
+
+    background: #7b2cff;
+
+    color: white;
+
+    padding: 12px 30px;
+
+    border-radius: 30px;
+
+    cursor: pointer;
+
+    font-size: 17px;
+
+    margin: 5px;
+
+    transition: 0.3s;
+
+}
+
+
+
+.product-card button:hover {
+
+    background: #5c19d6;
+
+    transform: scale(1.05);
+
+}
+
+
+/* About */
+
+.about {
+
+    padding: 40px 6%;
+
+    text-align: center;
+
+}
+
+
+
+.about h2 {
+
+    color: white;
+
+    font-size: 32px;
+
+    margin-bottom: 20px;
+
+}
+
+
+
+.about p {
+
+    color: white;
+
+    font-size: 18px;
+
+}
+
+
+
+
+
+/* Footer */
+
+
+footer {
+
+    text-align: center;
+
+    padding: 25px;
+
+    background: rgba(0,0,0,0.15);
+
+    color: white;
+
+    margin-top: 30px;
+
+}
+
+/* Mobile */
+
+@media (max-width: 768px) {
+
+
+    nav {
+
+        padding: 15px 5%;
+
+    }
+
+
+
+    .menu {
+
+        display: none;
+
+    }
+
+
+
+    .hamburger {
+
+        display: block;
+
+        font-size: 28px;
+
+        color: #7b2cff;
+
+    }
+
+
+
+    header h1 {
+
+        font-size: 30px;
+
+    }
+
+
+
+    header p {
+
+        font-size: 17px;
+
+    }
+
+
+
+
+/* تنسيق قسم نموذج الطلب */
+.order-box {
+    background: #ffffff;
+    color: #333;
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    text-align: right;
+}
+
+.order-box h2 {
+    color: #7b2cff;
+    font-size: 26px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.order-box p {
+    color: #555;
+    font-size: 16px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.order-box span#selectedProduct {
+    color: #7b2cff;
+    font-weight: bold;
+}
+
+/* تنسيق خانات الإدخال والقوائم */
+.order-box input, 
+.order-box select {
+    width: 100%;
+    padding: 14px 15px;
+    margin-bottom: 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    font-size: 16px;
+    outline: none;
+    transition: 0.3s;
+    background: #fafafa;
+}
+
+.order-box input:focus, 
+.order-box select:focus {
+    border-color: #7b2cff;
+    background: #fff;
+    box-shadow: 0 0 8px rgba(123, 44, 255, 0.15);
+}
+
+/* زر تأكيد الطلب */
+.order-box button {
+    width: 100%;
+    background: #7b2cff;
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 5px;
+}
+
+.order-box button:hover {
+    background: #5c19d6;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(123, 44, 255, 0.3);
+}
+
+
+
+/* هذا ينسق زر تأكيد الطلب داخل صندوق الطلب فقط */
+.order-box button {
+    width: 100%;
+    background: linear-gradient(135deg, #7b2cff, #5c19d6); /* تدرج لوني يعطي عمق */
+    color: white;
+    border: none;
+    padding: 18px; /* أكبر قليلاً */
+    border-radius: 15px; /* حواف أكثر دائرية */
+    font-size: 20px; /* نص أكبر وأوضح */
+    font-weight: 800; /* خط سميك */
+    cursor: pointer;
+    transition: all 0.4s ease;
+    margin-top: 15px;
+    box-shadow: 0 8px 20px rgba(123, 44, 255, 0.4); /* ظل أقوى وأوضح */
+    text-transform: uppercase; /* لجعل النص يبدو أكثر رسمية */
+}
+
+/* تأثير عند مرور الماوس */
+.order-box button:hover {
+    background: linear-gradient(135deg, #5c19d6, #7b2cff);
+    transform: scale(1.03); /* يتوسع قليلاً بدل أن يرتفع */
+    box-shadow: 0 12px 25px rgba(123, 44, 255, 0.5);
+}
+
+/* تأثير الضغط على الزر */
+.order-box button:active {
+    transform: scale(0.98);
+}
+
+
+
+    .product-card {
+
+        padding: 15px;
+
+    }
+.alert-text {
+    color: #ff3333; /* لون أحمر واضح وبارز */
+    font-weight: bold; /* خط عريض Bold */
+    font-size: 16px;
+}
+#orderBox {
+    display: none;
+}
+
+}
+/* From Uiverse.io by amir_6539 */ 
+.container {
+  height: 100%;
+  width: 100%;
+  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+  overflow: hidden;
+}
+
 #stars {
   width: 1px;
   height: 1px;
@@ -2131,573 +2711,3 @@ function showOrder(productName) {
   }
 }
 
-/* Navbar */
-
-nav {
-    width: 100%;
-    padding: 12px 5%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #ffffff;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-
-
-.logo-text {
-
-    font-size: 28px;
-    font-weight: bold;
-
-    color: #7b2cff;
-
-}
-
-
-
-.menu {
-
-    display: flex;
-    gap: 30px;
-
-}
-
-
-
-.menu a {
-
-    text-decoration: none;
-    color: #333;
-
-    font-size: 18px;
-
-}
-
-
-
-.hamburger {
-
-    display: none;
-
-}
-
-
-
-
-
-/* Header */
-
-
-header {
-    text-align: center;
-    padding: 30px 20px 20px 20px;
-}
-
-header img {
-    width: 180px;
-    height: 180px;
-    object-fit: contain;
-    margin-bottom: 10px;
-}
-
-.logo {
-    width: 180px;
-    height: 180px;
-    object-fit: contain;
-    margin-bottom: 20px;
-
-    animation: logoIntro 1.8s ease-out forwards;
-}
-
-
-header h1 {
-    font-size: 38px;
-    color: white !important;
-
-    opacity: 0;
-    transform: scale(0.5);
-
-    animation: textIntro 0.8s ease-out 1.5s forwards;
-}
-
-
-header p {
-    font-size: 20px;
-    color: rgba(255,255,255,0.85);
-
-    opacity: 0;
-    transform: scale(0.5);
-
-    animation: textIntro 0.8s ease-out 2s forwards;
-}
-
-
-/* حركة اللوقو */
-@keyframes logoIntro {
-
-    0% {
-        opacity: 0;
-        transform: scale(2.8) translateY(120px);
-    }
-
-    40% {
-        opacity: 1;
-    }
-
-    100% {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-    }
-
-}
-
-
-/* حركة النصوص */
-@keyframes textIntro {
-
-    0% {
-        opacity: 0;
-        transform: scale(0.5);
-    }
-
-    70% {
-        opacity: 1;
-        transform: scale(1.08);
-    }
-
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
-
-}
-
-
-
-
-
-
-
-
-/* Products */
-
-
-.products {
-
-    padding: 40px 6%;
-
-}
-
-
-.products h2 {
-    opacity: 0;
-    transform: scale(1);
-}
-
-.products h2.title-intro {
-    animation: titleIntro 1s ease-out forwards;
-}
-
-@keyframes titleIntro {
-    0% {
-        opacity: 0;
-        transform: scale(0.5);
-    }
-
-    70% {
-        opacity: 1;
-        transform: scale(1.08);
-    }
-
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-/* Cards */
-
-.product-card {
-    background: white;
-    color: #222; /* رجعت لون النص اللي يناسب متجرك */
-    border-radius: 20px;
-    padding: 20px;
-    margin-bottom: 35px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-    text-align: center;
-    opacity: 0;
-    transform: translateY(60px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-.product-card.show {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-
-}
-
-.product-card {
-
-    background: white;
-
-    max-width: 420px;
-
-    margin: 40px auto;
-
-    padding: 25px;
-
-    border-radius: 25px;
-
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-
-    opacity: 0;
-
-    transform: translateY(60px);
-
-    transition: opacity 0.8s ease, transform 0.8s ease;
-
-}
-
-.product-card.show {
-
-    opacity: 1;
-
-    transform: translateY(0);
-
-}
-
-
-}
-
-
-
-@keyframes fadeUp {
-
-
-    from {
-
-        opacity: 0;
-
-        transform: translateY(60px);
-
-    }
-
-
-    to {
-
-        opacity: 1;
-
-        transform: translateY(0);
-
-    }
-
-}
-
-
-
-.product-card img {
-
-    width: 100%;
-
-    max-width: 350px;
-
-    height: 300px;
-
-    object-fit: contain;
-
-    border-radius: 15px;
-
-}
-
-
-
-.product-card h3 {
-
-    color: #7b2cff;
-
-    font-size: 25px;
-
-    margin: 15px 0;
-
-}
-
-
-
-.product-card p {
-
-    color: #666;
-
-}
-
-
-.product-card h4 {
-
-    color: #7b2cff;
-
-    font-size: 24px;
-
-    margin: 15px;
-
-}
-.product-card button {
-
-    border: none;
-
-    background: #7b2cff;
-
-    color: white;
-
-    padding: 12px 30px;
-
-    border-radius: 30px;
-
-    cursor: pointer;
-
-    font-size: 17px;
-
-    margin: 5px;
-
-    transition: 0.3s;
-
-}
-
-
-
-.product-card button:hover {
-
-    background: #5c19d6;
-
-    transform: scale(1.05);
-
-}
-
-
-/* About */
-
-.about {
-
-    padding: 40px 6%;
-
-    text-align: center;
-
-}
-
-
-
-.about h2 {
-
-    color: white;
-
-    font-size: 32px;
-
-    margin-bottom: 20px;
-
-}
-
-
-
-.about p {
-
-    color: white;
-
-    font-size: 18px;
-
-}
-
-
-
-
-
-/* Footer */
-
-
-footer {
-
-    text-align: center;
-
-    padding: 25px;
-
-    background: rgba(0,0,0,0.15);
-
-    color: white;
-
-    margin-top: 30px;
-
-}
-
-/* Mobile */
-
-@media (max-width: 768px) {
-
-
-    nav {
-
-        padding: 15px 5%;
-
-    }
-
-
-
-    .menu {
-
-        display: none;
-
-    }
-
-
-
-    .hamburger {
-
-        display: block;
-
-        font-size: 28px;
-
-        color: #7b2cff;
-
-    }
-
-
-
-    header h1 {
-
-        font-size: 30px;
-
-    }
-
-
-
-    header p {
-
-        font-size: 17px;
-
-    }
-
-
-
-
-/* تنسيق قسم نموذج الطلب */
-.order-box {
-    background: #ffffff;
-    color: #333;
-    max-width: 500px;
-    margin: 40px auto;
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-    text-align: right;
-}
-
-.order-box h2 {
-    color: #7b2cff;
-    font-size: 26px;
-    margin-bottom: 15px;
-    text-align: center;
-}
-
-.order-box p {
-    color: #555;
-    font-size: 16px;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.order-box span#selectedProduct {
-    color: #7b2cff;
-    font-weight: bold;
-}
-
-/* تنسيق خانات الإدخال والقوائم */
-.order-box input, 
-.order-box select {
-    width: 100%;
-    padding: 14px 15px;
-    margin-bottom: 15px;
-    border: 2px solid #e0e0e0;
-    border-radius: 12px;
-    font-size: 16px;
-    outline: none;
-    transition: 0.3s;
-    background: #fafafa;
-}
-
-.order-box input:focus, 
-.order-box select:focus {
-    border-color: #7b2cff;
-    background: #fff;
-    box-shadow: 0 0 8px rgba(123, 44, 255, 0.15);
-}
-
-/* زر تأكيد الطلب */
-.order-box button {
-    width: 100%;
-    background: #7b2cff;
-    color: white;
-    border: none;
-    padding: 15px;
-    border-radius: 12px;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-    margin-top: 5px;
-}
-
-.order-box button:hover {
-    background: #5c19d6;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(123, 44, 255, 0.3);
-}
-
-
-
-/* هذا ينسق زر تأكيد الطلب داخل صندوق الطلب فقط */
-.order-box button {
-    width: 100%;
-    background: linear-gradient(135deg, #7b2cff, #5c19d6); /* تدرج لوني يعطي عمق */
-    color: white;
-    border: none;
-    padding: 18px; /* أكبر قليلاً */
-    border-radius: 15px; /* حواف أكثر دائرية */
-    font-size: 20px; /* نص أكبر وأوضح */
-    font-weight: 800; /* خط سميك */
-    cursor: pointer;
-    transition: all 0.4s ease;
-    margin-top: 15px;
-    box-shadow: 0 8px 20px rgba(123, 44, 255, 0.4); /* ظل أقوى وأوضح */
-    text-transform: uppercase; /* لجعل النص يبدو أكثر رسمية */
-}
-
-/* تأثير عند مرور الماوس */
-.order-box button:hover {
-    background: linear-gradient(135deg, #5c19d6, #7b2cff);
-    transform: scale(1.03); /* يتوسع قليلاً بدل أن يرتفع */
-    box-shadow: 0 12px 25px rgba(123, 44, 255, 0.5);
-}
-
-/* تأثير الضغط على الزر */
-.order-box button:active {
-    transform: scale(0.98);
-}
-
-
-
-    .product-card {
-
-        padding: 15px;
-
-    }
-.alert-text {
-    color: #ff3333; /* لون أحمر واضح وبارز */
-    font-weight: bold; /* خط عريض Bold */
-    font-size: 16px;
-}
-#orderBox {
-    display: none;
-}
-
-}
