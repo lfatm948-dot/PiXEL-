@@ -233,22 +233,24 @@ header p {
     font-weight: 700;
 }
 
-/* شريط البحث */
+/* شريط البحث - إضافة أنيميشن الظهور Fade Up */
 .search-box {
     position: relative;
     max-width: 380px;
     margin: 20px auto 15px auto;
     width: 90%;
+    opacity: 0;
+    animation: smoothFadeUp 0.8s ease-out 0.5s forwards; /* يظهر بأنيميشن */
 }
 
 .search-box input {
     width: 100%;
     padding: 12px 45px 12px 15px;
     border-radius: 25px;
-    border: none;
+    border: 2px solid rgba(255, 255, 255, 0.2);
     outline: none;
     font-size: 14px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
 .search-box .search-icon {
@@ -257,32 +259,37 @@ header p {
     top: 50%;
     transform: translateY(-50%);
     font-size: 16px;
+    color: #7b2cff;
 }
 
-/* شارات الثقة */
+/* شارات الثقة - إضافة أنيميشن الظهور Fade Up */
 .features-badges {
     display: flex;
     justify-content: center;
     gap: 10px;
     margin-top: 15px;
     flex-wrap: wrap;
+    opacity: 0;
+    animation: smoothFadeUp 0.8s ease-out 0.7s forwards; /* تظهر بأنيميشن بعد البحث */
 }
 
 .badge {
     background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(5px);
-    padding: 6px 12px;
+    padding: 6px 14px;
     border-radius: 20px;
     font-size: 12px;
     font-weight: 700;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-/* الخط الفاصل الناعم بعرض الشاشة */
+/* الخط الفاصل الأبيض البارز (Bold) */
 .full-divider {
     width: 100%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
-    margin: 25px 0 15px 0;
+    height: 3px; /* زيادة السمك */
+    background: #ffffff; /* لون أبيض صريح */
+    margin: 30px 0 20px 0;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* إضاءة ناعمة لإبرازه */
+    opacity: 0;
+    animation: smoothFadeUp 0.8s ease-out 0.9s forwards;
 }
-
