@@ -9,7 +9,7 @@
 body {
     background: #7b2cff;
     color: white;
-    line-height: 1.8;
+    line-height: 1.5;
 }
 
 let selectedProduct = "";
@@ -310,11 +310,11 @@ header p {
 
 .product-card img {
 
-    width: 100%;
+    width: 80%;
 
-    max-width: 350px;
+    max-width: 250px;
 
-    height: 300px;
+    height: 220px;
 
     object-fit: contain;
 
@@ -328,9 +328,9 @@ header p {
 
     color: #7b2cff;
 
-    font-size: 25px;
+    font-size: 22px;
 
-    margin: 15px 0;
+    margin: 5px 0;
 
 }
 
@@ -347,9 +347,9 @@ header p {
 
     color: #7b2cff;
 
-    font-size: 24px;
+    font-size: 22px;
 
-    margin: 15px;
+    margin: 10px;
 
 }
 .product-card button {
@@ -596,7 +596,10 @@ footer {
 
     .product-card {
 
+           .product-card {
         padding: 15px;
+        margin: 20px 15px;
+    }
 
     }
 .alert-text {
