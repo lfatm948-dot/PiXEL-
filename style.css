@@ -1,6 +1,3 @@
-/* ==========================================
-   1. الخطوط والإعدادات العامة (خط Cairo العصري)
-   ========================================== */
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap');
 
 * {
@@ -16,16 +13,6 @@ body {
     line-height: 1.4;
 }
 
-.container {
-    height: 100%;
-    width: 100%;
-    background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
-    overflow: hidden;
-}
-
-/* ==========================================
-   2. القائمة العلوية (Navbar)
-   ========================================== */
 nav {
     width: 100%;
     padding: 12px 5%;
@@ -40,14 +27,14 @@ nav {
 }
 
 .logo-text {
-    font-size: 26px;
+    font-size: 24px;
     font-weight: 900;
     color: #7b2cff;
 }
 
 .menu {
     display: flex;
-    gap: 30px;
+    gap: 20px;
 }
 
 .menu a {
@@ -61,65 +48,50 @@ nav {
     display: none;
 }
 
-/* ==========================================
-   3. الهيدر والأنيميشن الناعم (Header)
-   ========================================== */
 header {
     text-align: center;
-    padding: 30px 20px 10px 20px;
+    padding: 25px 15px 10px 15px;
 }
 
 header img, .logo {
-    width: 250px;
-    height: 250px;
+    width: 180px;
+    height: 180px;
     object-fit: contain;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     opacity: 0;
-    animation: smoothFadeUp 1s ease-out forwards;
+    animation: smoothFadeUp 0.8s ease-out forwards;
 }
 
 header h1 {
-    font-size: 32px;
+    font-size: 26px;
     font-weight: 900;
     color: white !important;
     opacity: 0;
-    animation: smoothFadeUp 1s ease-out 0.3s forwards;
+    animation: smoothFadeUp 0.8s ease-out 0.2s forwards;
 }
 
 header p {
-    font-size: 16px;
-    font-weight: 400;
+    font-size: 15px;
     color: rgba(255,255,255,0.9);
     opacity: 0;
-    animation: smoothFadeUp 1s ease-out 0.5s forwards;
+    animation: smoothFadeUp 0.8s ease-out 0.4s forwards;
 }
 
 @keyframes smoothFadeUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-/* ==========================================
-   4. قسم المنتجات والبطاقات (Product Cards)
-   ========================================== */
 .products {
-    padding: 20px 4%;
+    padding: 15px 3%;
 }
 
 .products h2 {
     text-align: center;
     color: white;
-    font-size: 28px;
+    font-size: 26px;
     font-weight: 800;
-    margin-bottom: 10px;
-    opacity: 0;
-    animation: smoothFadeUp 1s ease-out 0.7s forwards;
+    margin-bottom: 15px;
 }
 
 .product-card {
@@ -127,13 +99,13 @@ header p {
     color: #222;
     max-width: 330px;
     margin: 15px auto;
-    padding: 10px 8px;
+    padding: 12px;
     border-radius: 16px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     text-align: center;
     opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 0.7s ease-out, transform 0.7s ease-out, box-shadow 0.3s ease;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
 .product-card.show {
@@ -141,50 +113,42 @@ header p {
     transform: translateY(0);
 }
 
-.product-card:hover {
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-}
-
 .product-card img {
     width: 100%;
-    height: auto;
-    max-height: 250px;
+    height: 220px;
     object-fit: contain;
-    border-radius: 12px;
-    margin-bottom: 6px;
+    border-radius: 10px;
+    margin-bottom: 8px;
     display: block;
 }
 
 .product-card h3 {
-    color: #222;
-    font-size: 20px;
+    color: #111;
+    font-size: 19px;
     font-weight: 800;
-    margin: 0 0 8px 0;
+    margin-bottom: 8px;
 }
 
-/* تعديل القائمة والمواصفات: نص أسود واضح وإخفاء النقاط الجانبية */
 .product-card ul {
     list-style: none !important;
     padding: 0 !important;
-    margin: 0 0 8px 0 !important;
-    width: 100%;
+    margin: 0 0 10px 0 !important;
+    text-align: right;
 }
 
-.product-card p, 
 .product-card li {
-    color: #111111 !important; /* لون داكن جداً وواضح */
+    color: #111111 !important;
     font-size: 14px;
     font-weight: 600;
-    line-height: 1.4;
-    margin-bottom: 4px;
-    text-align: right;
+    line-height: 1.5;
+    margin-bottom: 3px;
 }
 
 .product-card h4 {
     color: #7b2cff;
     font-size: 22px;
     font-weight: 900;
-    margin: 8px 0 12px 0;
+    margin: 10px 0;
 }
 
 .product-card button {
@@ -192,36 +156,28 @@ header p {
     border: none;
     background: #7b2cff;
     color: white;
-    padding: 12px;
-    border-radius: 10px;
-    cursor: pointer;
+    padding: 11px;
+    border-radius: 8px;
     font-size: 16px;
     font-weight: 700;
-    transition: background 0.3s ease;
+    cursor: pointer;
 }
 
-.product-card button:hover {
-    background: #5c19d6;
-}
-
-/* ==========================================
-   5. نموذج الطلب والتجاوب مع الجوال
-   ========================================== */
 .order-box {
     background: #ffffff;
     color: #333;
     width: 90%;
-    max-width: 360px; /* تصغير المربع ليكون ملموماً */
+    max-width: 350px;
     margin: 20px auto;
-    padding: 15px 18px; /* تقليل الفراغات الداخلية */
-    border-radius: 14px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
     text-align: right;
 }
 
 .order-box h2 {
     color: #7b2cff;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 800;
     margin-bottom: 10px;
     text-align: center;
@@ -230,18 +186,12 @@ header p {
 .order-box input, 
 .order-box select {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 2px solid #eee;
-    border-radius: 8px;
-    font-size: 14px;
+    padding: 9px;
+    margin-bottom: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 13px;
     outline: none;
-    transition: 0.3s;
-}
-
-.order-box input:focus, 
-.order-box select:focus {
-    border-color: #7b2cff;
 }
 
 .order-box button {
@@ -249,36 +199,23 @@ header p {
     background: #7b2cff;
     color: white;
     border: none;
-    padding: 12px;
-    border-radius: 8px;
-    font-size: 16px;
+    padding: 11px;
+    border-radius: 6px;
+    font-size: 15px;
     font-weight: 800;
     cursor: pointer;
-    transition: 0.3s;
 }
 
-.order-box button:hover {
-    background: #5c19d6;
-}
-
-#orderBox {
-    display: none;
-}
+#orderBox { display: none; }
 
 .alert-text {
     color: #e74c3c;
     font-weight: 700;
-    font-size: 13px;
+    font-size: 12px;
 }
 
-/* الموبايل */
 @media (max-width: 768px) {
     .menu { display: none; }
-    .hamburger { display: block; font-size: 24px; color: #7b2cff; }
-    header h1 { font-size: 26px; }
-    
-    .product-card { 
-        width: 92%;
-        margin: 15px auto; 
-    }
+    .hamburger { display: block; font-size: 22px; color: #7b2cff; }
+    .product-card { width: 92%; }
 }
