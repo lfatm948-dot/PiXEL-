@@ -250,25 +250,16 @@ header p {
 }
 
 .product-card {
-
     background: white;
-
-    max-width: 420px;
-
-    margin: 40px auto;
-
-    padding: 25px;
-
-    border-radius: 25px;
-
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-
+    max-width: 320px; /* تم تصغيره من 420px ليصبح الكرت ملموماً ونحيفاً */
+    margin: 20px auto;
+    padding: 15px 12px; /* تقليل الفراغ الداخلي للكرت */
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    text-align: center;
     opacity: 0;
-
     transform: translateY(60px);
-
     transition: opacity 0.8s ease, transform 0.8s ease;
-
 }
 
 .product-card.show {
@@ -309,18 +300,16 @@ header p {
 
 
 .product-card img {
-
-    width: 80%;
-
-    max-width: 250px;
-
-    height: 220px;
-
+    width: 100%;
+    max-width: 260px; /* تصغير حجم الصورة قليلاً */
+    height: auto;
+    max-height: 220px;
     object-fit: contain;
-
-    border-radius: 15px;
-
+    border-radius: 12px;
+    margin: 0 auto 5px auto;
+    display: block;
 }
+
 
 
 
