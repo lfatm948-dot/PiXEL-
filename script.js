@@ -19,15 +19,17 @@ function showOrder(productName) {
     orderBox.scrollIntoView({
         behavior: "smooth"
     });
+
+}
 function searchProducts() {
-    let input = document.getElementById('searchInput').value.toLowerCase();
+    let input = document.getElementById('searchInput').value.trim().toLowerCase();
     let cards = document.querySelectorAll('.product-card');
 
     cards.forEach(card => {
-        let title = card.querySelector('h3').innerText.toLowerCase();
-        let details = card.innerText.toLowerCase();
-        
-        if (title.includes(input) || details.includes(input)) {
+        let title = card.querySelector('h3') ? card.querySelector('h3').innerText.toLowerCase() : '';
+        let content = card.innerText.toLowerCase();
+
+        if (title.includes(input) || content.includes(input)) {
             card.style.display = "block";
         } else {
             card.style.display = "none";
@@ -35,7 +37,6 @@ function searchProducts() {
     });
 }
 
-}
 const products = document.querySelectorAll(".product-card");
 
 window.addEventListener("scroll",()=>{
