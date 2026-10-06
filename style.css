@@ -230,16 +230,18 @@ header p {
 
 .product-card {
     background: white;
-    color: #222; /* رجعت لون النص اللي يناسب متجرك */
+    color: #222;
+    max-width: 340px; /* تم تكبيره قليلاً ليعطي مساحة أريح للنص */
+    margin: 25px auto;
+    padding: 15px; /* تقليل الفراغ الداخلي لتمدد المحتوى */
     border-radius: 20px;
-    padding: 20px;
-    margin-bottom: 35px;
     box-shadow: 0 8px 25px rgba(0,0,0,0.08);
     text-align: center;
     opacity: 0;
     transform: translateY(60px);
     transition: opacity 0.8s ease, transform 0.8s ease;
 }
+
 
 .product-card.show {
     opacity: 1;
@@ -296,22 +298,16 @@ header p {
     }
 
 }
-
-
-
 .product-card img {
-    width: 100%;
-    max-width: 260px; /* تصغير حجم الصورة قليلاً */
-    height: auto;
-    max-height: 220px;
+    width: 100%; /* إجبار الصورة على تعبئة عرض الكرت */
+    max-width: 100%; /* إزالة التقييد السابق الذي كان يسبب المساحة البيضاء */
+    height: auto; /* جعل الطول يتناسب تلقائياً مع العرض لتجنب التشويه */
+    max-height: 250px; 
     object-fit: contain;
     border-radius: 12px;
-    margin: 0 auto 5px auto;
+    margin: 0 auto 10px auto;
     display: block;
 }
-
-
-
 
 .product-card h3 {
 
