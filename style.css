@@ -7,7 +7,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Cairo', sans-serif; /* خط احترافي وعصري يطابق طلبك */
+    font-family: 'Cairo', sans-serif;
 }
 
 body {
@@ -111,13 +111,23 @@ header p {
 .products {
     padding: 20px 4%;
 }
-/* تقليل الفراغ الداخلي للكرت لتمتلئ المساحة */
+
+.products h2 {
+    text-align: center;
+    color: white;
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 10px;
+    opacity: 0;
+    animation: smoothFadeUp 1s ease-out 0.7s forwards;
+}
+
 .product-card {
     background: white;
     color: #222;
     max-width: 330px;
     margin: 15px auto;
-    padding: 8px 6px; /* تقليل الفراغ الداخلي جداً لملء المساحة */
+    padding: 10px 8px;
     border-radius: 16px;
     box-shadow: 0 5px 20px rgba(0,0,0,0.1);
     text-align: center;
@@ -126,7 +136,15 @@ header p {
     transition: opacity 0.7s ease-out, transform 0.7s ease-out, box-shadow 0.3s ease;
 }
 
-/* الصورة تتمدد لملء عرض الكرت بالكامل */
+.product-card.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.product-card:hover {
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
 .product-card img {
     width: 100%;
     height: auto;
@@ -137,37 +155,6 @@ header p {
     display: block;
 }
 
-/* القوائم والمواصفات تأخذ العرض الكامل */
-.product-card ul, 
-.product-card p {
-    width: 100%;
-    padding: 0 4px;
-    margin-bottom: 4px;
-}
-
-/* تصميم الكرت بشكل ملموم واحترافي */
-
-/* الكلاس الذي يفعل الظهور عند التمرير */
-.product-card.show {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.product-card:hover {
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-}
-
-.products h2 {
-    text-align: center;
-    color: white;
-    font-size: 28px;
-    font-weight: 800;
-    margin-bottom: 10px;
-    opacity: 0;
-    animation: smoothFadeUp 1s ease-out 0.7s forwards; /* يظهر مباشرة بعد الهيدر */
-}
-
-/* اسم المنتج */
 .product-card h3 {
     color: #222;
     font-size: 20px;
@@ -175,17 +162,24 @@ header p {
     margin: 0 0 8px 0;
 }
 
-/* المواصفات - مسافات مغلقة ومقروءة */
-.product-card p, 
-.product-card li {
-    color: #666;
-    font-size: 14px;
-    line-height: 1.4;
-    margin-bottom: 4px;
+/* تعديل القائمة والمواصفات: نص أسود واضح وإخفاء النقاط الجانبية */
+.product-card ul {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 0 8px 0 !important;
+    width: 100%;
 }
 
+.product-card p, 
+.product-card li {
+    color: #111111 !important; /* لون داكن جداً وواضح */
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 4px;
+    text-align: right;
+}
 
-/* السعر - ملاصق للمواصفات وبارز */
 .product-card h4 {
     color: #7b2cff;
     font-size: 22px;
@@ -193,9 +187,8 @@ header p {
     margin: 8px 0 12px 0;
 }
 
-/* زر الطلب بتصميم حديث */
 .product-card button {
-    width: 100%; /* الزر يملأ عرض الكرت */
+    width: 100%;
     border: none;
     background: #7b2cff;
     color: white;
@@ -217,27 +210,28 @@ header p {
 .order-box {
     background: #ffffff;
     color: #333;
-    max-width: 400px;
-    margin: 30px auto;
-    padding: 25px;
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    width: 90%;
+    max-width: 360px; /* تصغير المربع ليكون ملموماً */
+    margin: 20px auto;
+    padding: 15px 18px; /* تقليل الفراغات الداخلية */
+    border-radius: 14px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
     text-align: right;
 }
 
 .order-box h2 {
     color: #7b2cff;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 800;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     text-align: center;
 }
 
 .order-box input, 
 .order-box select {
     width: 100%;
-    padding: 12px;
-    margin-bottom: 12px;
+    padding: 10px;
+    margin-bottom: 10px;
     border: 2px solid #eee;
     border-radius: 8px;
     font-size: 14px;
@@ -255,7 +249,7 @@ header p {
     background: #7b2cff;
     color: white;
     border: none;
-    padding: 14px;
+    padding: 12px;
     border-radius: 8px;
     font-size: 16px;
     font-weight: 800;
@@ -274,7 +268,7 @@ header p {
 .alert-text {
     color: #e74c3c;
     font-weight: 700;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 /* الموبايل */
@@ -284,7 +278,7 @@ header p {
     header h1 { font-size: 26px; }
     
     .product-card { 
-        width: 95%; /* الكرت يأخذ المساحة المناسبة في الجوال */
+        width: 92%;
         margin: 15px auto; 
     }
 }
