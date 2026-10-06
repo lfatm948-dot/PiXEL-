@@ -92,7 +92,7 @@ header p {
     font-weight: 800;
     margin-bottom: 10px;
     opacity: 0;
-    animation: smoothFadeUp 1s ease-out 0.7s forwards; /* يظهر مباشرة بعد الهيدر */
+    animation: smoothFadeUp 0.7s ease-out 0.7s forwards; /* يظهر مباشرة بعد الهيدر */
 }
 
 .product-card {
@@ -219,4 +219,7 @@ header p {
     .menu { display: none; }
     .hamburger { display: block; font-size: 22px; color: #7b2cff; }
     .product-card { width: 92%; }
+}
+.delay-first {
+    transition-delay: 1.5s !important;
 }
