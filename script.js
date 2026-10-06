@@ -19,6 +19,21 @@ function showOrder(productName) {
     orderBox.scrollIntoView({
         behavior: "smooth"
     });
+function searchProducts() {
+    let input = document.getElementById('searchInput').value.toLowerCase();
+    let cards = document.querySelectorAll('.product-card');
+
+    cards.forEach(card => {
+        let title = card.querySelector('h3').innerText.toLowerCase();
+        let details = card.innerText.toLowerCase();
+        
+        if (title.includes(input) || details.includes(input)) {
+            card.style.display = "block";
+        } else {
+            card.style.display = "none";
+        }
+    });
+}
 
 }
 const products = document.querySelectorAll(".product-card");
