@@ -4,28 +4,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Pixel Store</title>
 <link rel="stylesheet" href="style.css">
-
 </head>
 
 <body>
 
 <nav>
     <div class="logo-text">PIXEL STORE</div>
-    
     <div class="menu">
         <a href="#">الرئيسية</a>
         <a href="#about">من نحن</a>
     </div>
-
     <div class="hamburger" onclick="openMenu()">☰</div>
 </nav>
 
 <header>
     <img src="https://i.ibb.co/n8KW2R74/Blue-Modern-Technology-Company-Logo.png" alt="Pixel Store Logo" class="logo">
-    <h1>مرحبًا بك في متجر PIXEL </h1>
+    <h1>مرحبًا بك في متجر PIXEL</h1>
     <p><b>وجهتك الأولى في صناعة المحتوى</b></p>
 </header>
 
@@ -131,7 +127,7 @@
         <li>✓ إضاءة SMD LED RGB</li>
         <li>✓ تحكم في السطوع وحرارة اللون</li>
         <li>✓ ستاند بطول 2 متر</li>
-        <li>الألوان: أبيض عادي - باقي ألوان الـ RGB</li>
+        <li>✓ الألوان: أبيض عادي - باقي ألوان RGB</li>
         <li>✓ ضمان 6 أشهر</li>
     </ul>
     <h4>250 د.ل</h4>
@@ -145,7 +141,7 @@
         <li>✓ إضاءة SMD LED</li>
         <li>✓ تحكم في السطوع وحرارة اللون</li>
         <li>✓ تأتي مع ستاند بطول 2 متر هدية</li>
-        <li>الألوان: أبيض عادي - أبيض بارد - أبيض دافئ</li>
+        <li>✓ الألوان: أبيض عادي - أبيض بارد - أبيض دافئ</li>
         <li>✓ ضمان لمدة 6 أشهر</li>
     </ul>
     <h4>240 د.ل</h4>
@@ -238,7 +234,6 @@
 
 </section>
 
-<!-- نموذج الطلب -->
 <div id="orderBox" class="order-box">
     <h2>طلب المنتج 💜</h2>
     <p>المنتج: <span id="selectedProduct"></span></p>
@@ -268,25 +263,21 @@
 </section>
 
 <footer>
-    <p>© 2026 Pixel Store 💜</p>
+    <p>© 2025 Pixel Store 💜</p>
 </footer>
 
 <script src="script.js"></script>
 
-<!-- كود تفعيل أنيميشن التمرير للكروت -->
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     const cards = document.querySelectorAll(".product-card");
-    
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add("show");
             }
         });
-    }, {
-        threshold: 0.15
-    });
+    }, { threshold: 0.1 });
 
     cards.forEach(card => observer.observe(card));
 });
