@@ -1,19 +1,19 @@
 /* ==========================================
-   1. الخطوط والإعدادات العامة
+   1. الخطوط والإعدادات العامة (خط Cairo العصري)
    ========================================== */
-@import url('https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap');
 
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Aref Ruqaa', Arial, sans-serif; /* خط غروب الشمس / رقعة عربي عريض وفخم */
+    font-family: 'Cairo', sans-serif; /* خط احترافي وعصري يطابق طلبك */
 }
 
 body {
     background: #7b2cff;
     color: white;
-    line-height: 1.3;
+    line-height: 1.4;
 }
 
 .container {
@@ -40,8 +40,8 @@ nav {
 }
 
 .logo-text {
-    font-size: 28px;
-    font-weight: bold;
+    font-size: 26px;
+    font-weight: 900;
     color: #7b2cff;
 }
 
@@ -53,12 +53,8 @@ nav {
 .menu a {
     text-decoration: none;
     color: #333;
-    font-size: 18px;
-    transition: color 0.3s ease;
-}
-
-.menu a:hover {
-    color: #7b2cff;
+    font-size: 16px;
+    font-weight: 600;
 }
 
 .hamburger {
@@ -66,128 +62,140 @@ nav {
 }
 
 /* ==========================================
-   3. الهيدر والانيميشن (Header)
+   3. الهيدر والأنيميشن الناعم (Header)
    ========================================== */
 header {
     text-align: center;
-    padding: 25px 15px 15px 15px;
+    padding: 30px 20px 10px 20px;
 }
 
 header img, .logo {
     width: 140px;
     height: 140px;
     object-fit: contain;
-    margin-bottom: 10px;
-    animation: logoIntro 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    margin-bottom: 15px;
+    opacity: 0;
+    animation: smoothFadeUp 1s ease-out forwards;
 }
 
 header h1 {
     font-size: 32px;
+    font-weight: 900;
     color: white !important;
     opacity: 0;
-    animation: textIntro 0.8s ease-out 1s forwards;
+    animation: smoothFadeUp 1s ease-out 0.3s forwards;
 }
 
 header p {
-    font-size: 18px;
+    font-size: 16px;
+    font-weight: 400;
     color: rgba(255,255,255,0.9);
     opacity: 0;
-    animation: textIntro 0.8s ease-out 1.3s forwards;
+    animation: smoothFadeUp 1s ease-out 0.5s forwards;
 }
 
-@keyframes logoIntro {
-    0% { opacity: 0; transform: scale(0.5) translateY(-50px); }
-    100% { opacity: 1; transform: scale(1) translateY(0); }
-}
-
-@keyframes textIntro {
-    0% { opacity: 0; transform: translateY(20px); }
-    100% { opacity: 1; transform: translateY(0); }
+@keyframes smoothFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* ==========================================
    4. قسم المنتجات والبطاقات (Product Cards)
    ========================================== */
 .products {
-    padding: 15px 3%;
+    padding: 20px 4%;
 }
 
+/* تصميم الكرت بشكل ملموم واحترافي */
 .product-card {
     background: white;
     color: #222;
-    max-width: 350px; /* العرض المثالي للكرت ليملأ الشاشة بدون فراغات زرقاء واسعة */
+    max-width: 320px; /* عرض مناسب جداً للجوال */
     margin: 20px auto;
-    padding: 12px; /* تقليل الحواف الداخلية ليتمدد المحتوى والصورة بالكامل */
-    border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    padding: 12px; /* تقليل الفراغ الداخلي لتمتلئ المساحة */
+    border-radius: 16px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
     text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
+    /* الأنيميشن الخاص بالتمرير (Fade on scroll) */
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out, box-shadow 0.3s ease;
 }
 
-/* افكت رفع الكرت عند مرور الماوس أو اللمس */
+/* الكلاس الذي يفعل الظهور عند التمرير */
+.product-card.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 .product-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
 
-/* جعل الصورة تملأ المربع بدون مساحات فارغة */
+/* الصورة تملأ الكرت بشكل متناسق */
 .product-card img {
     width: 100%;
-    max-width: 100%;
-    height: 230px;
+    height: 220px; /* توحيد طول الصور */
     object-fit: contain;
     border-radius: 12px;
-    margin-bottom: 8px;
-    display: block;
+    margin-bottom: 10px;
+    background-color: #fcfcfc; /* لون خلفية خفيف جداً لملء الفراغ إن وجد */
 }
 
-/* عنوان المنتج */
+/* اسم المنتج */
 .product-card h3 {
-    color: #7b2cff;
-    font-size: 22px;
-    margin: 4px 0 6px 0;
+    color: #222;
+    font-size: 20px;
+    font-weight: 800;
+    margin: 0 0 8px 0;
 }
 
-/* المواصفات والفقرات والقوائم - مسافات ملاصقة جداً */
+/* المواصفات - مسافات مغلقة ومقروءة */
 .product-card p, 
 .product-card li {
-    color: #444;
-    font-size: 15px;
-    line-height: 1.3;
-    margin-bottom: 2px;
+    color: #666;
+    font-size: 14px;
+    line-height: 1.4;
+    margin-bottom: 4px;
 }
 
 .product-card ul {
     list-style: none;
     padding: 0;
-    margin-bottom: 4px;
+    margin-bottom: 5px;
 }
 
-/* السعر - ملاصق تماماً للمواصفات */
+/* السعر - ملاصق للمواصفات وبارز */
 .product-card h4 {
     color: #7b2cff;
-    font-size: 24px;
-    margin: 6px 0 8px 0;
-    font-weight: bold;
+    font-size: 22px;
+    font-weight: 900;
+    margin: 8px 0 12px 0;
 }
 
-/* زر الطلب بتأثير حركي مميز */
+/* زر الطلب بتصميم حديث */
 .product-card button {
+    width: 100%; /* الزر يملأ عرض الكرت */
     border: none;
-    background: linear-gradient(135deg, #7b2cff, #5c19d6);
+    background: #7b2cff;
     color: white;
-    padding: 10px 32px;
-    border-radius: 25px;
+    padding: 12px;
+    border-radius: 10px;
     cursor: pointer;
-    font-size: 17px;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(123, 44, 255, 0.3);
+    font-size: 16px;
+    font-weight: 700;
+    transition: background 0.3s ease;
 }
 
 .product-card button:hover {
-    transform: scale(1.06);
-    box-shadow: 0 6px 20px rgba(123, 44, 255, 0.5);
+    background: #5c19d6;
 }
 
 /* ==========================================
@@ -196,22 +204,30 @@ header p {
 .order-box {
     background: #ffffff;
     color: #333;
-    max-width: 420px;
-    margin: 25px auto;
-    padding: 20px;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    max-width: 400px;
+    margin: 30px auto;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
     text-align: right;
+}
+
+.order-box h2 {
+    color: #7b2cff;
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 15px;
+    text-align: center;
 }
 
 .order-box input, 
 .order-box select {
     width: 100%;
     padding: 12px;
-    margin-bottom: 10px;
-    border: 2px solid #e0e0e0;
-    border-radius: 10px;
-    font-size: 15px;
+    margin-bottom: 12px;
+    border: 2px solid #eee;
+    border-radius: 8px;
+    font-size: 14px;
     outline: none;
     transition: 0.3s;
 }
@@ -223,23 +239,39 @@ header p {
 
 .order-box button {
     width: 100%;
-    background: linear-gradient(135deg, #7b2cff, #5c19d6);
+    background: #7b2cff;
     color: white;
     border: none;
     padding: 14px;
-    border-radius: 12px;
-    font-size: 18px;
-    font-weight: bold;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 800;
     cursor: pointer;
     transition: 0.3s;
+}
+
+.order-box button:hover {
+    background: #5c19d6;
 }
 
 #orderBox {
     display: none;
 }
 
+.alert-text {
+    color: #e74c3c;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+/* الموبايل */
 @media (max-width: 768px) {
     .menu { display: none; }
-    .hamburger { display: block; font-size: 26px; color: #7b2cff; }
-    .product-card { margin: 15px auto; width: 92%; }
+    .hamburger { display: block; font-size: 24px; color: #7b2cff; }
+    header h1 { font-size: 26px; }
+    
+    .product-card { 
+        width: 95%; /* الكرت يأخذ المساحة المناسبة في الجوال */
+        margin: 15px auto; 
+    }
 }
