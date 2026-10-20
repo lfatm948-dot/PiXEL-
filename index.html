@@ -10,9 +10,6 @@
 
 <body>
 
-<div class="starfield" aria-hidden="true"></div>
-<div class="site-content">
-
 <!-- شريط التنبيهات العلوي -->
 <div class="announcement-bar">
     <span>🚚 توصيل لجميع المدن | ✨ منتجات مضمونة 100%</span>
@@ -368,56 +365,23 @@
 
 </section>
 
-<section id="orderBox" class="order-box" aria-labelledby="orderTitle">
-    <div class="order-heading">
-        <span class="order-kicker">خطوة أخيرة</span>
-        <h2 id="orderTitle">أكمل طلبك</h2>
-        <p class="order-product">المنتج: <strong id="selectedProduct"></strong></p>
-    </div>
+<div id="orderBox" class="order-box">
+    <h2>طلب المنتج 💜</h2>
+    <p>المنتج: <span id="selectedProduct"></span></p>
 
-    <form id="orderForm" novalidate>
-        <div class="form-grid">
-            <label class="form-field" for="name">اسم الزبون
-                <input id="name" name="name" type="text" placeholder="اكتب اسمك" autocomplete="name" required>
-            </label>
-            <label class="form-field" for="phone">رقم الهاتف
-                <input id="phone" name="phone" type="tel" placeholder="09xxxxxxxx" autocomplete="tel" inputmode="tel" required>
-            </label>
-            <div class="form-field city-field" id="cityPicker">
-                <span class="field-label">المدينة / المكان</span>
-                <input id="location" name="location" type="hidden">
-                <button id="cityTrigger" class="city-trigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="cityDropdown">
-                    <span id="cityTriggerText">اختر المدينة</span>
-                    <span class="city-chevron" aria-hidden="true">⌄</span>
-                </button>
-                <div id="cityDropdown" class="city-dropdown" hidden>
-                    <label class="visually-hidden" for="citySearch">ابحث عن المدينة</label>
-                    <input id="citySearch" type="search" placeholder="ابحث عن مدينة..." autocomplete="off">
-                    <div id="cityOptions" class="city-options" role="listbox" aria-label="المدن المتاحة"></div>
-                    <p id="noCities" class="no-cities" hidden>لا توجد نتائج مطابقة.</p>
-                </div>
-            </div>
-            <label class="form-field" for="quantity">الكمية
-                <input id="quantity" name="quantity" type="number" min="1" step="1" value="1" inputmode="numeric" required>
-            </label>
-            <label class="form-field" for="payment">طريقة الدفع
-                <select id="payment" name="payment">
-                    <option>كاش</option>
-                    <option>حوالة مصرفية</option>
-                </select>
-            </label>
-        </div>
+    <input id="name" type="text" placeholder="الاسم">
+    <input id="phone" type="tel" placeholder="رقم الهاتف">
+    <input id="location" type="text" placeholder="المكان">
 
-        <div class="order-summary" aria-live="polite">
-            <div><span>سعر المنتج للوحدة</span><strong id="unitPrice">—</strong></div>
-            <div><span>سعر التوصيل</span><strong id="shippingPrice">اختر المدينة</strong></div>
-            <div class="summary-total"><span>الإجمالي شامل التوصيل</span><strong id="orderTotal">—</strong></div>
-        </div>
+    <select id="payment">
+        <option>كاش</option>
+        <option>حوالة مصرفية</option>
+    </select>
 
-        <p class="order-note">سيتم فتح محادثة WhatsApp لإتمام طلبك.</p>
-        <button class="submit-order" type="submit">إرسال الطلب عبر WhatsApp</button>
-    </form>
-</section>
+    <p>ملاحظة: <span class="alert-text">عند الضغط على زر اتمام الطلب سيتم تحويلك مباشرة إلى محادثة الواتساب لإتمام طلبك</span></p>
+
+    <button onclick="sendWhatsApp()">تأكيد الطلب</button>
+</div>
 
 <section id="about" class="about">
     <h2>عن PIXEL 💜</h2>
@@ -432,8 +396,6 @@
 <footer>
     <p>© 2025 Pixel Store 💜</p>
 </footer>
-
-</div>
 
 <script src="script.js"></script>
 
