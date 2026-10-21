@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pixel Store</title>
+<link rel="stylesheet" href="style.css?v=3">
+</head>
+
+<body>
+
+<!-- شريط التنبيهات العلوي -->
+<div class="announcement-bar">
+    <span>🚚 توصيل لجميع المدن | ✨ منتجات مضمونة 100%</span>
+</div>
+
+<nav>
+    <div class="logo-text">PIXEL STORE</div>
+    <div class="menu">
+        <a href="#">الرئيسية</a>
+        <a href="#about">من نحن</a>
+    </div>
+    <div class="hamburger" onclick="openMenu()">☰</div>
+</nav>
+
+<header>
+    <img src="https://i.ibb.co/n8KW2R74/Blue-Modern-Technology-Company-Logo.png" alt="Pixel Store Logo" class="logo">
+    <h1>مرحبًا بك في متجرنا 💜</h1>
+    <p>وجهتك الأولى في صناعة المحتوى</p>
+
+    <!-- شريط البحث -->
+    <div class="search-box">
+        <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="ابحث عن منتج (مايك، ترايبود، إضاءة...)...">
+        <span class="search-icon">🔍</span>
+    </div>
+
+    <!-- ميزات المتجر (Trust Badges) -->
+    <div class="features-badges">
+        <div class="badge">⚡ شحن سريع</div>
+        <div class="badge">🛡️ جودة عالية</div>
+        <div class="badge">💬 دعم متواصل</div>
+    </div>
+</header>
+
+<!-- الخط الفاصل بعرض الشاشة -->
+<div class="full-divider"></div>
+
+
+<section class="products">
+
+<h2>المنتجات: </h2>
+   <div class="product-card">
+    <img src="https://i.ibb.co/S4jBMbxt/IMG-2183.jpg" alt="Plokama Tube VM06 Pro">
+    <h3>Plokama Tube VM06 Pro</h3>
+    <ul>
+        <li>✓ إضاءة تيوب بالألوان الأساسية + RGB 🌈</li>
+        <li>✓ تحكم في السطوع ودرجة حرارة اللون</li>
+        <li>✓ بطارية قابلة للشحن للاستخدام بدون أسلاك</li>
+        <li>✓ تصميم محمول وخفيف، مناسب للتصوير وصناعة المحتوى</li>
+    </ul>
+    <h4>140د.ل</h4>
+    <button class="add-cart" onclick="addToCart('Plokama Tube VM06 Pro')">🛒 أضف للسلة</button>
+</div>
+
+
+<div class="product-card"
+ class="product-card delay-first">
+
+
+    <img src="https://i.ibb.co/mCKfNqj0/IMG-1325.webp" alt="Plokama PK-9950">
+    <h3>Plokama PK-9950</h3>
+    <ul>
+        <li>✓ ترايبود حجم كبير</li>
+        <li>✓ حديد ومتين وثقيل</li>
+    
+        <li>✓ ريموت تحكم عن بعد + حقيبة</li>
+        <li>✓ طول1.5 متر</li>
+        <li>✓ متوافق مع الأجهزة والكاميرات وغيرها</li>
+    </ul>
+    <h4>170 د.ل</h4>
+    <button class="add-cart" onclick="addToCart('Plokama PK-9950')">🛒 أضف للسلة</button>
+</div>
+
+<div class="product-card">
+    <img src="https://i.ibb.co/QjnxShhk/IMG-1469.jpg" alt="Power Bank BAVIN">
+    <h3>Power Bank BAVIN</h3>
+    <ul>
+        <li>✓ باور بانك بسعة10000mah</li>
+        <li>✓ شحن سريع حتى 22.5W</li>
+        <li>✓ شاشة LED لمعرفة نسبة الشحن</li>
+        <li>✓ بطارية Lithium Polymer عالية الكثافة</li>
+        <li>✓ كابل Lightning + Type-C مرفق</li>
+        <li>✓ حماية من الحرارة والشحن الزائد</li>
+        
+    </ul>
+    <h4>170 د.ل</h4>
+    <button class="add-cart" onclick="addToCart('Power Bank BAVIN')">🛒 أضف للسلة</button>
+</div>
+
+<div class="product-card">
+    <img src="https://i.ibb.co/Kzwsy6cp/IMG-1472.jpg" alt="Plokama ML50 Pro">
+    <h3>Plokama ML50 Pro</h3>
+    <ul>
+        <li>✓ إضاءة محمولة ومغناطيسية 💡</li>
+        <li>✓ 3 درجات لحرارة اللون: بارد، طبيعي، دافئ</li>
+        <li>✓ إضاءة RGB بألوان وتأثيرات متعددة 🌈</li>
+        <li>✓ تحكم دقيق في مستوى السطوع</li>
+        <li>✓ تصميم صغير وسهل الحمل</li>
+        <li>✓ مرآة مدمجة لرؤية نفسك أثناء التصوير 🤳</li>
+        <li>✓ مثالية لصنّاع المحتوى والسيلفي والبث المباشر</li>
+    </ul>
+    <h4>75 د.ل</h4>
+    <button class="add-cart" onclick="addToCart('Plokama ML50 Pro')">🛒 أضف للسلة</button>
+</div>
+
+
+
+<div class="product-card">
+    <img src="https://i.ibb.co/2YfCGHMg/IMG-1184.jpg" alt="Plokama P19 RGB">
+    <h3>Plokama P19 RGB</h3>
+    <ul>
+        <li>✓ إضاءة SMD LED RGB</li>
+        <li>✓ تحكم في السطوع وحرارة اللون</li>
+        <li>✓ ستاند بطول 2 متر</li>
+        <li>✓ الألوان: أبيض عادي - باقي ألوان RGB</li>
+    
+    </ul>
+    <h4>270 د.ل</h4>
+    <button class="add-cart" onclick="addToCart('Plokama P19 RGB')">🛒 أضف للسلة</button>
+</div>
+
+<div class="product-card">
+    <img src="https://i.ibb.co/VpLx8z1x/IMG-1530.jpg" alt="PLOKAMA P19 LED">
+    <h3>PLOKAMA P19 LED 💡</h3>
+    <ul>
+        <li>✓ إضاءة SMD LED</li>
+        <li>✓ تحكم في السطوع وحرارة اللون</li>
+        <li>✓ تأتي مع ستاند بطول 2 متر هدية</li>
+        <li>✓ الألوان: أبيض عادي - أبيض بارد - أبيض دافئ</li>
+       
+  </ul>
+‏
+   
+    <h4>265 د.ل</h4>
+    <button class="add-cart" onclick="addToCart('PLOKAMA P19 LED 💡')">🛒 أضف للسلة</button>
+</div>
+
+
+<div class="product-card">
+
+    <img src="https://i.ibb.co/cSCBsdYs/IMG-0012.jpg" alt="Plokama PK10 Pro">
+
+    <h3>Plokama PK10 Pro 💡</h3>
+
+    <pre>
+✓ جودة عالية وثبات ممتاز
+✓ إضاءتين مدمجتين مع الترايبود
+✓ مسمار إضافي لتركيب إضاءة ثالثة
+✓ ارتفاع يصل حتى مترين
+✓ ريموت تحكم للتصوير عن بُعد
+✓ قابل للطي وحجمه صغير وسهل الحمل
+    </pre>
+
+    <h4>150 د.ل</h4>
+
+    <button class="add-cart" onclick="addToCart('Plokama PK10 Pro')">🛒 أضف للسلة</button>
+
+</div>
+
+
+<div class="product-card">
+
+    <img src="https://i.ibb.co/zHPf2nvc/IMG-0013.jpg" alt="Plokama PK79">
+
+    <h3>Plokama PK79 💡</h3>
+
+    <pre>
+✓ حجم صغير وإضاءة قوية جدًا
+✓ تركب مباشرة على الجوال
+✓ تعمل بالبطاريات
+✓ سهلة الحمل والاستخدام
+✓ مثبت مرفق لتركيبها على الترايبود
+    </pre>
+
+    <h4>50 د.ل</h4>
+
+    <button class="add-cart" onclick="addToCart('Plokama PK79')">🛒 أضف للسلة</button>
+
+</div>
+    
+    
+    <div class="product-card">
+    <img src="https://i.ibb.co/C3cQd1Wy/IMG-1236.jpg" alt="Mic Hoco L21">
+    <h3>Mic Hoco L21</h3>
+    <ul>
+        <li>✓ مايك حجم صغير</li>
+        <li>✓ تصميم دائري أنيق</li>
+        <li>✓ تقنية عزل الضوضاء</li>
+        <li>✓ شحن يستمر إلى 6 ساعات</li>
+        <li>✓ من أفضل المايكات تحت 200 دينار</li>
+    </ul>
+    <h4>175 د.ل</h4>
+    <button class="add-cart" onclick="addToCart('Mic Hoco L21')">🛒 أضف للسلة</button>
+</div>
+
+    
+<div class="product-card">
+    <img src="https://i.ibb.co/6cm8vYbK/IMG-1471.png" alt="حاملة PIXEL">
+    <h3>حاملة PIXEL</h3>
+    <ul>
+        <li>✓ تثبيت مزدوج: شفط + مغناطيس</li>
+        <li>✓ تقنية MagSafe</li>
+        <li>✓ دوران 180° + 360° 🔄</li>
+        <li>✓ حجم صغير وسهلة التنقل 🤝</li>
+        <li>✓ تثبيت ثابت وآمن</li>
+        <li>✓ مناسبة للتصوير والمكتب والسيارة</li>
+        <li>✓ متوافقة مع مختلف الأجهزة</li>
+    </ul>
+    <h4>45 د.ل</h4>
+    <button class="add-cart" onclick="addToCart('حاملة PIXEL')">🛒 أضف للسلة</button>
+</div>
+<div class="product-card">
+    <img src="https://i.ibb.co/MxmgpVqK/IMG-1200.jpg" alt="LED U600 +">
+    <h3>LED U600 +</h3>
+    <ul>
+        <li>✓ حجم صغير</li>
+        <li>✓ سهلة التنقل</li>
+        <li>✓ عواكس لتوجيه الضوء</li>
+        <li>✓ سلك شاحن طويل</li>
+        <li>✓ إمكانية وضع بطاريات</li>
+    </ul>
+    <h4>199 د.ل</h4>
+    <button class="add-cart" onclick="addToCart('LED U600 +')">🛒 أضف للسلة</button>
+</div>
+<div class="product-card">
+    <img src="https://i.ibb.co/gZv1GjP8/IMG-1181.jpg" alt="Plokama Pk-995">
+    <h3>Plokama Pk-995</h3>
+    <ul>
+        <li>✓ ترايبود حديد ومتين</li>
+        <li>✓ يصل ارتفاع 2 متر</li>
+        <li>✓ ريموت تحكم عن بعد + حقيبة</li>
+        <li>✓ متوافق مع الاجهزة والكاميرات وغيرها</li>
+    </ul>
+    <h4>150 د.ل</h4>
+    <button class="add-cart" onclick="addToCart('Plokama Pk-995')">🛒 أضف للسلة</button>
+</div>
+
+
+<div class="product-card">
+    <img src="https://i.ibb.co/mVMBRVXw/IMG-2184.jpg" alt="RGB Lighting Spotlight">
+    <h3>RGB Lighting Spotlight 🌈</h3>
+    <ul>
+        <li>✓ إضاءة سبوت لايت RGB</li>
+        <li>✓ ستاند بطول 2 متر</li>
+        <li>✓ تحكم في الألوان والسطوع</li>
+        <li>✓ رأس قابل للدوران والإمالة لتوجيه الضوء</li>
+        <li>✓ ريموت تحكم لاسلكي مرفق</li>
+        <li>✓ مناسبة لتصوير المنتجات، وديكور الغرف</li>
+    </ul>
+    <h4>210 د.ل</h4>
+    <button class="add-cart" onclick="addToCart('RGB Lighting Spotlight')">🛒 أضف للسلة</button>
+</div>
+
+<div class="product-card">
+    <img src="https://i.ibb.co/nMHmgNpq/IMG-2187.jpg" alt="حاملة الهاتف للصدر">
+    <h3>حاملة الهاتف للصدر 📱</h3>
+    <ul>
+        <li>✓ تصوير بدون استخدام اليدين</li>
+        <li>✓ قابل للدوران 360° للتصوير</li>
+        <li>✓ سيليكون مانع للانزلاق لحماية الهاتف وتثبيته</li>
+        <li>✓ حزام نايلون مرن وقابل للتعديل</li>
+        <li>✓ مناسبة للرياضة، الـVLOG، الرحلات والمغامرات 🏃‍♂️</li>
+    </ul>
+    <h4>85 د.ل</h4>
+    <button class="add-cart" onclick="addToCart('حاملة الهاتف للصدر')">🛒 أضف للسلة</button>
+</div>
+
+<div class="product-card">
+    <img src="https://i.ibb.co/PG3Sv3Cq/IMG-2185.jpg" alt="Plokama LIVE-K7 LED">
+    <h3>Plokama LIVE-K7 LED 🤳</h3>
+    <ul>
+        <li>✓ 3 في 1: ميني ترايبود + عصا سيلفي + إضاءة مرفقة</li>
+        <li>✓ تمتد حتى 110 سم</li>
+        <li>✓ دوران 360° لتعديل زاوية التصوير</li>
+        <li>✓ ريموت لاسلكي للتصوير عن بُعد</li>
+        <li>✓ مصنوعة من Stainless Steel + ABS لمتانة وثبات أفضل</li>
+        <li>✓ خفيفة ومحمولة</li>
+    </ul>
+    <h4>99 د.ل</h4>
+    <button class="add-cart" onclick="addToCart('Plokama LIVE-K7 LED')">🛒 أضف للسلة</button>
+</div>
+ 
+    <div class="product-card">
+    <img src="https://i.ibb.co/BVQ64F8F/IMG-1532.jpg" alt="mini tripod Plokama K5 LED">
+    <h3>mini tripod Plokama K5 LED 🤳</h3>
+    <ul>
+        <li>✓ 3 في 1: عصا سيلفي + ميني ترايبود + إضاءة LED</li>
+        <li>✓ تمتد من 16 إلى 70 سم</li>
+        <li>✓ دوران 360° وإمالة 270°</li>
+        <li>✓ ريموت Bluetooth للتصوير عن بُعد</li>
+        <li>✓ إضاءة LED بثلاث درجات لون</li>
+    </ul>
+    <h4>75د.ل</h4>
+    <button class="add-cart" onclick="addToCart('mini tripod Plokama K5 LED 🤳')">🛒 أضف للسلة</button>
+</div>
+
+<div class="product-card">
+    <img src="https://i.ibb.co/271ttc5Y/IMG-1533.jpg" alt="Earbuds BAVIN-73">
+    <h3>Earbuds BAVIN-73 🎧</h3>
+    <ul>
+        <li>✓ سماعة من شركة bavin بأختام الشركة</li>
+        <li>✓ تقنية عزل الضوضاء ANC</li>
+        <li>✓ شاشة لمس LED ملونة بالكامل داخل العلبة</li>
+        <li>✓ بطارية تدوم حتى 7 ساعات تقريبًا</li>
+        <li>✓ ضمان سنة كاملة</li>
+    </ul>
+    <h4>185 د.ل</h4>
+    <button class="add-cart" onclick="addToCart('Earbuds BAVIN-73 🎧')">🛒 أضف للسلة</button>
+</div>
+
+<div class="product-card">
+    <img src="https://i.ibb.co/DD1DP10H/IMG-1182.webp" alt="Mic Plokama vm-80">
+    <h3>Mic Plokama vm-80</h3>
+    <ul>
+        <li>✓ مايك قوي وحجم صغير</li>
+        <li>✓ 2x mic</li>
+        <li>✓ علبة باور بنك</li>
+        <li>✓ شاشة لعرض حالة الشحن</li>
+        <li>✓ متوافق مع جميع الأجهزة</li>
+    </ul>
+    <h4>330 د.ل</h4>
+    <button class="add-cart" onclick="addToCart('Mic Plokama vm-80')">🛒 أضف للسلة</button>
+</div>
+
+<div class="product-card">
+    <img src="https://i.ibb.co/KxQ9cWLR/IMG-1183.webp" alt="Plokama U160 RGB">
+    <h3>Plokama U160 RGB</h3>
+    <ul>
+        <li>✓ إضاءة RGB متعددة الألوان</li>
+        <li>✓ تحكم كامل في السطوع وحرارة اللون</li>
+        <li>✓ بطارية تدوم حتى ساعتين</li>
+        <li>✓ تركب على الموبايل، الكاميرا والترايبود</li>
+    </ul>
+    <h4>120 د.ل</h4>
+    <button class="add-cart" onclick="addToCart('Plokama U160 RGB')">🛒 أضف للسلة</button>
+</div>
+
+
+
+<div class="product-card">
+    <img src="https://i.ibb.co/7x2Rq2yy/IMG-1238.jpg" alt="ستاند رقبة">
+    <h3>ستاند رقبة</h3>
+    <ul>
+        <li>✓ مرن وقابل للتشكيل بفضل السيلكون العالي الجودة 🤩</li>
+        <li>✓ دوران 180° + 360°</li>
+        <li>✓ حزام مضاد للاهتزاز 🔒</li>
+        <li>✓ محول 1/4 لتركيب الكاميرا والإضاءة 📸</li>
+        <li>✓ مناسب للمصورين وصناع المحتوى 🎥</li>
+        <li>✓ متوافق مع جميع الأجهزة 👋</li>
+    </ul>
+    <h4>165 د.ل</h4>
+    <button class="add-cart" onclick="addToCart('ستاند رقبة')">🛒 أضف للسلة</button>
+</div>
+
+</section>
+
+<div id="orderBox" class="order-box">
+    <h2>إتمام الطلب 💜</h2>
+
+    <div id="obItems" class="ob-items"></div>
+
+    <div class="ob-row">
+        <input id="name" type="text" placeholder="الاسم" autocomplete="name">
+        <input id="phone" type="tel" placeholder="رقم الهاتف" autocomplete="tel">
+    </div>
+
+    <!-- اختيار المدينة / المكان -->
+    <div class="city-picker" id="cityPicker">
+        <input type="hidden" id="location">
+        <button type="button" class="city-trigger" id="cityTrigger" aria-haspopup="listbox" aria-expanded="false">
+            <span id="cityLabel" class="placeholder">📍 اختر المدينة / المكان</span>
+            <span class="city-arrow">▾</span>
+        </button>
+        <div class="city-panel" id="cityPanel">
+            <div class="city-search">
+                <input type="text" id="citySearch" placeholder="🔍 ابحث عن مدينتك..." autocomplete="off">
+            </div>
+            <ul class="city-list" id="cityList" role="listbox"></ul>
+        </div>
+    </div>
+
+    <select id="payment">
+        <option>كاش</option>
+        <option>حوالة مصرفية</option>
+    </select>
+
+    <div class="ob-summary">
+        <div><span>المنتجات</span><b id="sumProduct">—</b></div>
+        <div><span>التوصيل</span><b id="sumDelivery" class="muted">اختر المدينة</b></div>
+        <div class="ob-total"><span>الإجمالي</span><b id="sumTotal">—</b></div>
+    </div>
+
+    <p class="ob-note">ملاحظة: <span class="alert-text">عند الضغط على زر تأكيد الطلب سيتم تحويلك مباشرة إلى محادثة الواتساب لإتمام طلبك</span></p>
+
+    <button class="ob-submit" onclick="sendWhatsApp()">تأكيد الطلب</button>
+</div>
+
+<section id="about" class="about">
+    <h2>عن PIXEL 💜</h2>
+    <p>
+    متجر إلكتروني جديد متخصص في بيع معدات التصوير وصناعة المحتوى.
+    نهدف إلى توفير أدوات عملية تساعد صناع المحتوى والمصورين على تطوير جودة تصويرهم، مع تجربة شراء سهلة ومنتجات مختارة بعناية.
+    <br><br>
+    لأننا نؤمن أن التفاصيل الصغيرة تصنع الفرق ✨
+    </p>
+</section>
+
+<footer>
+    <p>© 2025 Pixel Store 💜</p>
+</footer>
+
+<!-- السلة -->
+<div id="cartPanel" class="cart-panel">
+    <div class="cart-backdrop" onclick="closeCart()"></div>
+    <div class="cart-sheet">
+        <div class="cart-head">
+            <h3>🛒 السلة</h3>
+            <button type="button" class="cart-close" onclick="closeCart()" aria-label="إغلاق">✕</button>
+        </div>
+        <div id="cartItems" class="cart-items"></div>
+        <div id="cartEmpty" class="cart-empty">السلة فارغة</div>
+        <div id="cartFoot" class="cart-foot">
+            <div class="cart-sum"><span>مجموع المنتجات</span><b id="cartSubtotal">0 د.ل</b></div>
+            <small>سعر التوصيل يظهر بعد اختيار المدينة</small>
+            <button type="button" class="cart-order" onclick="checkoutCart()">اطلب الآن</button>
+        </div>
+    </div>
+</div>
+
+<script src="script.js?v=3"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const cards = document.querySelectorAll(".product-card");
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("show");
+            }
+        });
+    }, { threshold: 0.1 });
+
+    cards.forEach(card => observer.observe(card));
+});
+</script>
+
+</body>
+</html>
