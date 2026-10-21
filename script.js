@@ -103,23 +103,74 @@ function toast(msg) {
     clearTimeout(toastTimer);
     toastTimer = setTimeout(function () { t.classList.remove("show"); }, 1800);
 }
+// عدد القطع في السلة
+function cartCount() {
+    return cart.reduce(function (s, i) { return s + i.qty; }, 0);
+}
+
+// نسبة الخصم: قطعتين = 4% ، ثلاث قطع أو أكثر = 6%
+function cartDiscountPct() {
+    const n = cartCount();
+    if (n >= 3) return 6;
+    if (n === 2) return 4;
+    return 0;
+}
+
+// الأسعار: قبل الخصم / النسبة / بعد الخصم
+function cartTotals() {
+    const sub = cartSubtotal();
+    const pct = cartDiscountPct();
+    const total = pct ? Math.round(sub * (100 - pct) / 100) : sub;
+    return { sub: sub, pct: pct, total: total };
+}
+
+// يعرض السعر الأصلي مشطوبًا وبجانبه السعر بعد الخصم
+function showPrice(el, t) {
+    if (!el) return;
+    el.textContent = "";
+    if (t.pct) {
+        const old = document.createElement("s");
+        old.className = "old-price";
+        old.textContent = t.sub + " د.ل";
+        el.appendChild(old);
+        el.appendChild(document.createTextNode(" " + t.total + " د.ل"));
+    } else {
+        el.textContent = t.total + " د.ل";
+    }
+}
+
+// رسالة الخصم داخل السلة
+function discountNote() {
+    const n = cartCount();
+    if (n === 0) return "";
+    if (n === 1) return "🛍️ أضف منتجًا ثانيًا واحصل على خصم 4%";
+    if (n === 2) return "🎉 حصلت على خصم 4% — أضف قطعة ثالثة لتحصل على خصم 6%";
+    return "🎉 حصلت على أعلى خصم: 6%";
+}
 
 // تحديث ملخص السعر داخل بوكس الطلب
 function updateOrderSummary() {
     const sp = document.getElementById("sumProduct");
     const sd = document.getElementById("sumDelivery");
     const st = document.getElementById("sumTotal");
+    const dr = document.getElementById("sumDiscRow");
+    const dv = document.getElementById("sumDisc");
 
     if (!sp || !sd || !st) return;
 
-    const subtotal = cartSubtotal();
+    const t = cartTotals();
 
-    sp.innerText = subtotal + " د.ل";
+    showPrice(sp, t);
+
+    if (dr && dv) {
+        dr.style.display = t.pct ? "flex" : "none";
+        if (t.pct) dv.textContent = t.pct + "% (وفّرت " + (t.sub - t.total) + " د.ل)";
+    }
 
     if (selectedCity) {
         sd.innerText = selectedDelivery + " د.ل";
         sd.classList.remove("muted");
-        st.innerText = (subtotal + selectedDelivery) + " د.ل";
+        showPrice(st, { pct: t.pct, sub: t.sub + selectedDelivery, total: t.total + selectedDelivery });
     } else {
         sd.innerText = "اختر المدينة";
         sd.classList.add("muted");
@@ -154,15 +205,15 @@ function renderItems(box) {
         box.appendChild(row);
     });
 }
-
 function renderCart() {
     renderItems(document.getElementById("cartItems"));
     const empty = !cart.length;
     document.getElementById("cartEmpty").style.display = empty ? "block" : "none";
     document.getElementById("cartFoot").style.display = empty ? "none" : "block";
-    document.getElementById("cartSubtotal").textContent = cartSubtotal() + " د.ل";
+    showPrice(document.getElementById("cartSubtotal"), cartTotals());
+    const note = document.getElementById("cartNote");
+    if (note) note.textContent = discountNote();
 }
-
 function renderOrderItems() {
     renderItems(document.getElementById("obItems"));
     updateOrderSummary();
@@ -272,7 +323,6 @@ product.classList.remove("show");
 });
 
 });
-// إرسال الطلب للواتساب
 function sendWhatsApp() {
 
     let name = document.getElementById("name").value.trim();
@@ -289,9 +339,10 @@ function sendWhatsApp() {
 
     }
 
-    // السعر النهائي = مجموع المنتجات + سعر التوصيل
-    let subtotal = cart.reduce(function (s, i) { return s + i.price * i.qty; }, 0);
-    let total = subtotal + selectedDelivery;
+    // السعر النهائي = مجموع المنتجات بعد الخصم + سعر التوصيل
+    let t = cartTotals();
+    let total = t.total + selectedDelivery;
+    let discLine = t.pct ? "\n🎁 الخصم: " + t.pct + "% (-" + (t.sub - t.total) + " د.ل)" : "";
 
     function line(i) { return i.name + (i.qty > 1 ? " × " + i.qty : ""); }
 
@@ -304,7 +355,7 @@ function sendWhatsApp() {
 ${productsText}
 👤 الاسم: ${name}
 📞 رقم الهاتف: ${phone}
-📍 المدينة: ${selectedCity}
+📍 المدينة: ${selectedCity}${discLine}
 💰 السعر النهائي (شامل التوصيل): ${total} د.ل
 💳 طريقة الدفع: ${payment}`;
 
@@ -315,7 +366,6 @@ ${productsText}
     window.open(whatsappLink, "_blank");
 
 }
-
 // القائمة في الهاتف
 
 function openMenu(){
