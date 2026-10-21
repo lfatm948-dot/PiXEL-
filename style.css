@@ -655,3 +655,77 @@ body.cart-open { overflow: hidden; }
 .cart-sum b { color: #7b2cff; }
 .cart-foot small { display: block; color: #888; font-size: 12px; margin: 2px 0 10px; }
 .cart-order { background: #7b2cff; color: #fff; border: none; border-radius: 8px; padding: 8px 24px; font-size: 14px; font-weight: 800; cursor: pointer; }
+/* ===== من نحن + تواصل معنا + الفوتر ===== */
+.about, .contact { padding: 18px 5% 4px; scroll-margin-top: 70px; }
+
+.about-card {
+    max-width: 420px;
+    margin: 0 auto;
+    padding: 18px 16px;
+    text-align: center;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 18px;
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+}
+.about-card h2 { font-size: 20px; font-weight: 900; margin-bottom: 10px; }
+.about-card p { font-size: 14px; line-height: 1.9; color: rgba(255,255,255,0.92); margin-bottom: 8px; }
+.about-quote {
+    margin-top: 12px;
+    padding: 10px 12px;
+    background: rgba(255,255,255,0.16);
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.contact { text-align: center; padding-top: 22px; }
+.contact h2 { font-size: 22px; font-weight: 900; margin-bottom: 4px; }
+.contact-sub { font-size: 13px; color: rgba(255,255,255,0.85); margin-bottom: 14px; }
+
+.social-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    max-width: 360px;
+    margin: 0 auto;
+}
+.social {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    color: #fff;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+}
+.s-ico {
+    width: 100%;
+    max-width: 64px;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 18px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+    transition: transform 0.15s;
+}
+.s-ico svg { width: 30px; height: 30px; }
+.social:active .s-ico { transform: scale(0.93); }
+@media (hover: hover) { .social:hover .s-ico { transform: translateY(-3px); } }
+.s-name { font-size: 12px; font-weight: 700; }
+
+.social.ig .s-ico { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+.social.fb .s-ico { background: #1877f2; }
+.social.tk .s-ico { background: #111; border: 1px solid rgba(255,255,255,0.25); }
+.social.wa .s-ico { background: #25d366; }
+
+footer {
+    margin-top: 22px;
+    padding: 16px 5% calc(80px + env(safe-area-inset-bottom, 0px));
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.18);
+    font-size: 12px;
+    color: rgba(255,255,255,0.75);
+}
