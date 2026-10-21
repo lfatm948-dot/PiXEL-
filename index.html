@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pixel Store</title>
-<link rel="stylesheet" href="style.css?v=4">
+<link rel="stylesheet" href="style.css?v=5">
 </head>
 
 <body>
@@ -398,6 +398,7 @@
 
     <div class="ob-summary">
         <div><span>المنتجات</span><b id="sumProduct">—</b></div>
+        <div id="sumDiscRow" style="display:none"><span>🎁 الخصم</span><b id="sumDisc" class="disc"></b></div>
         <div><span>التوصيل</span><b id="sumDelivery" class="muted">اختر المدينة</b></div>
         <div class="ob-total"><span>الإجمالي</span><b id="sumTotal">—</b></div>
     </div>
@@ -472,13 +473,14 @@
         <div id="cartEmpty" class="cart-empty">السلة فارغة</div>
         <div id="cartFoot" class="cart-foot">
             <div class="cart-sum"><span>مجموع المنتجات</span><b id="cartSubtotal">0 د.ل</b></div>
+            <div id="cartNote" class="disc-note"></div>
             <small>سعر التوصيل يظهر بعد اختيار المدينة</small>
             <button type="button" class="cart-order" onclick="checkoutCart()">اطلب الآن</button>
         </div>
     </div>
 </div>
 
-<script src="script.js?v=3"></script>
+<script src="script.js?v=5"></script>
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
