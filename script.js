@@ -781,3 +781,266 @@ window.addEventListener("load", function () {
     renderCart();
 
 })();
+
+// ==========================================================
+// المفضلة ❤️ + شريط التنقل السفلي + قسم "لماذا PIXEL؟" + شاشة الترحيب
+// ==========================================================
+
+const FAV_KEY = "pixel_favs";
+let favOnly = false;
+let favIds = new Set();
+
+try { favIds = new Set(JSON.parse(localStorage.getItem(FAV_KEY) || "[]")); } catch (e) { favIds = new Set(); }
+
+function saveFavs() {
+    try { localStorage.setItem(FAV_KEY, JSON.stringify(Array.from(favIds))); } catch (e) {}
+}
+
+function updateFavBadge() {
+    const el = document.getElementById("navFavCount");
+    if (!el) return;
+    el.textContent = favIds.size;
+    el.style.display = favIds.size ? "flex" : "none";
+}
+
+// عدّاد السلة (نسخة تدعم شريط التنقل السفلي)
+function updateCartBadge() {
+    const n = cartCount();
+    const a = document.getElementById("cartCount");
+    if (a) a.textContent = n;
+    const b = document.getElementById("navCartCount");
+    if (b) {
+        b.textContent = n;
+        b.style.display = n ? "flex" : "none";
+    }
+}
+
+// البحث + التصنيف + المفضلة (نسخة جديدة)
+function searchProducts() {
+    const input = (document.getElementById("searchInput").value || "").trim().toLowerCase();
+    let shown = 0;
+
+    document.querySelectorAll(".product-card").forEach(function (card) {
+        const h3 = card.querySelector("h3");
+        const title = h3 ? h3.innerText.toLowerCase() : "";
+        const content = card.innerText.toLowerCase();
+
+        const okText = !input || title.includes(input) || content.includes(input);
+        const okCat = activeCat === "all" || card.dataset.cat === activeCat;
+        const okFav = !favOnly || favIds.has(card.id);
+
+        if (okText && okCat && okFav) {
+            card.style.display = "block";
+            card.classList.add("show");
+            shown++;
+        } else {
+            card.style.display = "none";
+        }
+    });
+
+    const nr = document.getElementById("noResults");
+    if (nr) {
+        nr.style.display = shown ? "none" : "block";
+        nr.textContent = (favOnly && !favIds.size)
+            ? "لا توجد منتجات في المفضلة بعد ❤️ اضغط على القلب في أي منتج لإضافته"
+            : "لا توجد منتجات مطابقة";
+    }
+}
+
+function setFavOnly(on) {
+    favOnly = on;
+    const bar = document.getElementById("favBar");
+    if (bar) bar.style.display = on ? "flex" : "none";
+    const nb = document.querySelector('#bottomNav [data-act="fav"]');
+    if (nb) nb.classList.toggle("active", on);
+    searchProducts();
+}
+
+(function initApp() {
+
+    const section = document.querySelector(".products");
+
+    // ---------- شريط المفضلة + رسالة "لا توجد نتائج" ----------
+    const anchor = document.querySelector(".sort-row") || document.querySelector(".cat-bar");
+    if (anchor) {
+        const fb = document.createElement("div");
+        fb.id = "favBar";
+        fb.className = "fav-bar";
+        fb.style.display = "none";
+
+        const sp = document.createElement("span");
+        sp.textContent = "❤️ تعرض المفضلة فقط";
+        const bt = document.createElement("button");
+        bt.type = "button";
+        bt.textContent = "عرض كل المنتجات";
+        bt.addEventListener("click", function () { setFavOnly(false); });
+        fb.appendChild(sp);
+        fb.appendChild(bt);
+
+        const nr = document.createElement("div");
+        nr.id = "noResults";
+        nr.className = "no-results";
+        nr.style.display = "none";
+
+        anchor.insertAdjacentElement("afterend", nr);
+        anchor.insertAdjacentElement("afterend", fb);
+    }
+
+    // ---------- أزرار القلب على المنتجات ----------
+    function syncHearts() {
+        document.querySelectorAll(".product-card").forEach(function (card) {
+            const b = card.querySelector(".fav-btn");
+            if (!b) return;
+            const on = favIds.has(card.id);
+            b.textContent = on ? "❤️" : "🤍";
+            b.classList.toggle("on", on);
+            b.setAttribute("aria-pressed", on ? "true" : "false");
+        });
+    }
+
+    document.querySelectorAll(".product-card").forEach(function (card) {
+        const wrap = card.querySelector(".p-actions");
+        if (!wrap) return;
+
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "fav-btn";
+        b.setAttribute("aria-label", "المفضلة");
+        b.addEventListener("click", function () {
+            if (favIds.has(card.id)) {
+                favIds.delete(card.id);
+                toast("تمت الإزالة من المفضلة");
+            } else {
+                favIds.add(card.id);
+                toast("تمت الإضافة للمفضلة ❤️");
+            }
+            saveFavs();
+            syncHearts();
+            updateFavBadge();
+            if (favOnly) searchProducts();
+        });
+
+        wrap.insertBefore(b, wrap.querySelector(".share-btn"));
+    });
+    syncHearts();
+
+    // ---------- قسم لماذا PIXEL؟ ----------
+    const why = [
+        ["🚚", "توصيل لجميع المدن", "وسعر التوصيل يظهر لك قبل تأكيد الطلب"],
+        ["🛡️", "منتجات مضمونة", "جودة عالية ومنتجات مختارة بعناية"],
+        ["🎁", "خصم على الكمية", "4% لقطعتين و6% لثلاث قطع أو أكثر"],
+        ["💬", "دعم عبر الواتساب", "تواصل معنا لأي استفسار قبل الطلب"]
+    ];
+
+    const sec = document.createElement("section");
+    sec.id = "why";
+    sec.className = "why";
+
+    const h2 = document.createElement("h2");
+    h2.textContent = "لماذا PIXEL؟ 💜";
+    sec.appendChild(h2);
+
+    const grid = document.createElement("div");
+    grid.className = "why-grid";
+
+    why.forEach(function (w) {
+        const card = document.createElement("div");
+        card.className = "why-card";
+
+        const ico = document.createElement("span");
+        ico.className = "why-ico";
+        ico.textContent = w[0];
+        const t = document.createElement("b");
+        t.textContent = w[1];
+        const p = document.createElement("p");
+        p.textContent = w[2];
+
+        card.appendChild(ico);
+        card.appendChild(t);
+        card.appendChild(p);
+        grid.appendChild(card);
+    });
+    sec.appendChild(grid);
+
+    const place = document.getElementById("reviews") || document.getElementById("faq") || document.getElementById("about");
+    if (place) place.parentNode.insertBefore(sec, place);
+
+    // ---------- شريط التنقل السفلي ----------
+    const nav = document.createElement("div");
+    nav.id = "bottomNav";
+    nav.setAttribute("role", "navigation");
+
+    [["home", "🏠", "الرئيسية"], ["products", "🛍️", "المنتجات"], ["fav", "❤️", "المفضلة"], ["cart", "🛒", "السلة"], ["contact", "💬", "تواصل"]].forEach(function (it) {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.dataset.act = it[0];
+
+        const ico = document.createElement("span");
+        ico.className = "bn-ico";
+        ico.textContent = it[1];
+        const lbl = document.createElement("span");
+        lbl.className = "bn-lbl";
+        lbl.textContent = it[2];
+        b.appendChild(ico);
+        b.appendChild(lbl);
+
+        if (it[0] === "fav" || it[0] === "cart") {
+            const bd = document.createElement("span");
+            bd.className = "bn-badge";
+            bd.id = it[0] === "fav" ? "navFavCount" : "navCartCount";
+            bd.textContent = "0";
+            bd.style.display = "none";
+            b.appendChild(bd);
+        }
+        nav.appendChild(b);
+    });
+
+    nav.addEventListener("click", function (e) {
+        const b = e.target.closest("button[data-act]");
+        if (!b) return;
+        const act = b.dataset.act;
+
+        if (act === "home") {
+            setFavOnly(false);
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        } else if (act === "products") {
+            setFavOnly(false);
+            if (section) section.scrollIntoView({ behavior: "smooth", block: "start" });
+        } else if (act === "fav") {
+            setFavOnly(!favOnly);
+            if (section) section.scrollIntoView({ behavior: "smooth", block: "start" });
+        } else if (act === "cart") {
+            openCart();
+        } else if (act === "contact") {
+            const c = document.getElementById("contact");
+            if (c) c.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+    });
+
+    document.body.appendChild(nav);
+    document.body.classList.add("has-nav");
+    updateCartBadge();
+    updateFavBadge();
+
+    // إخفاء الشريط أثناء إتمام الطلب وأثناء الكتابة (لا يغطي لوحة المفاتيح)
+    const ob = document.getElementById("orderBox");
+    if (ob && "IntersectionObserver" in window) {
+        new IntersectionObserver(function (es) {
+            nav.classList.toggle("hide", es[0].isIntersecting);
+        }).observe(ob);
+    }
+
+    document.addEventListener("focusin", function (e) {
+        if (/^(INPUT|SELECT|TEXTAREA)$/.test(e.target.tagName)) nav.classList.add("kb");
+    });
+    document.addEventListener("focusout", function () { nav.classList.remove("kb"); });
+
+    // ---------- شاشة الترحيب ----------
+    const splash = document.getElementById("splash");
+    if (splash) {
+        splash.addEventListener("click", function () { splash.classList.add("hide"); });
+        setTimeout(function () { splash.classList.add("hide"); }, 1900);
+    }
+
+})();
+
