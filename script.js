@@ -1635,3 +1635,315 @@ function setFavOnly(on) {
 
 })();
 
+// ==========================================================
+// لمسات احترافية: تحميل الصور بسلاسة + نافذة تفاصيل المنتج + شاشة تأكيد الطلب + زر للأعلى
+// (كتلة مستقلة: الصقها في آخر script.js)
+// ==========================================================
+(function pxPro() {
+
+    function $(s, r) { return (r || document).querySelector(s); }
+    function $$(s, r) { return Array.from((r || document).querySelectorAll(s)); }
+
+    function el(tag, cls, txt) {
+        const e = document.createElement(tag);
+        if (cls) e.className = cls;
+        if (txt !== undefined) e.textContent = txt;
+        return e;
+    }
+
+    function btn(cls, txt, fn) {
+        const b = el("button", cls, txt);
+        b.type = "button";
+        if (fn) b.addEventListener("click", fn);
+        return b;
+    }
+
+    const PLACEHOLDER = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 190"><rect width="300" height="190" fill="#f3eefc"/>' +
+        '<g fill="none" stroke="#b9a6dc" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">' +
+        '<rect x="105" y="62" width="90" height="66" rx="12"/><circle cx="150" cy="95" r="17"/><path d="M128 62l7-12h30l7 12"/></g></svg>'
+    );
+
+    // ---------- أداء + لون شريط المتصفح ----------
+    try {
+        if (!$('link[rel="preconnect"][href*="ibb.co"]')) {
+            const l = document.createElement("link");
+            l.rel = "preconnect";
+            l.href = "https://i.ibb.co";
+            l.crossOrigin = "";
+            document.head.appendChild(l);
+        }
+        if (!$('meta[name="theme-color"]')) {
+            const m = document.createElement("meta");
+            m.name = "theme-color";
+            m.content = "#7b2cff";
+            document.head.appendChild(m);
+        }
+    } catch (e) {}
+
+    // ---------- الصور: هيكل تحميل + ظهور تدريجي + صورة بديلة ----------
+    $$(".product-card img").forEach(function (img, i) {
+        function ok() { img.classList.add("img-ok"); }
+        function bad() {
+            if (!img.dataset.fb) { img.dataset.fb = "1"; img.src = PLACEHOLDER; }
+            else ok();
+        }
+        if (img.complete && img.naturalWidth > 0) ok();
+        else if (img.complete) bad();
+        img.addEventListener("load", ok);
+        img.addEventListener("error", bad);
+        if (i > 1 && !img.hasAttribute("loading")) img.loading = "lazy";
+    });
+
+    // ---------- نافذة تفاصيل المنتج ----------
+    function specsOf(card) { return $("ul", card) || $("pre", card); }
+
+    const dsheet = el("div", "px-sheet");
+    dsheet.id = "detailSheet";
+    document.body.appendChild(dsheet);
+
+    function closeDetail() {
+        dsheet.classList.remove("open");
+        document.body.classList.remove("cart-open");
+    }
+
+    function openDetail(card) {
+        const h3 = $("h3", card);
+        const h4 = $("h4", card);
+        const im = $("img", card);
+        const specs = specsOf(card);
+
+        dsheet.innerHTML = "";
+        const back = el("div", "px-backdrop");
+        back.addEventListener("click", closeDetail);
+
+        const box = el("div", "px-box ds-box");
+        box.appendChild(el("div", "px-handle"));
+
+        const head = el("div", "px-head");
+        head.appendChild(el("h3", "", h3 ? h3.textContent.trim() : ""));
+        head.appendChild(btn("px-close", "✕", closeDetail));
+        box.appendChild(head);
+
+        const imgWrap = el("div", "ds-img");
+        const big = el("img");
+        big.alt = "";
+        big.src = im ? (im.currentSrc || im.src) : "";
+        imgWrap.appendChild(big);
+        box.appendChild(imgWrap);
+
+        box.appendChild(el("div", "ds-price", h4 ? h4.textContent.trim() : ""));
+
+        if (specs) {
+            const c = specs.cloneNode(true);
+            c.className = "ds-specs";
+            c.removeAttribute("style");
+            box.appendChild(c);
+        }
+
+        const row = el("div", "ds-actions");
+        const addB = $(".add-cart", card);
+        const sold = !addB || addB.disabled;
+        const add = btn("ds-add", sold ? "نفدت الكمية" : "🛒 أضف للسلة", function () {
+            if (sold) return;
+            addB.click();
+            add.textContent = "✓ تمت الإضافة";
+            setTimeout(function () { add.textContent = "🛒 أضف للسلة"; }, 1200);
+        });
+        if (sold) add.disabled = true;
+        row.appendChild(add);
+
+        const ch = $(".fav-btn", card);
+        if (ch) {
+            const hb = btn("ds-icon fav" + (ch.classList.contains("on") ? " on" : ""), "", function () {
+                ch.click();
+                hb.classList.toggle("on", ch.classList.contains("on"));
+            });
+            hb.innerHTML = ch.innerHTML;
+            row.appendChild(hb);
+        }
+
+        const sh = $(".share-btn", card);
+        if (sh) row.appendChild(btn("ds-icon", "🔗", function () { sh.click(); }));
+
+        box.appendChild(row);
+        dsheet.appendChild(back);
+        dsheet.appendChild(box);
+        dsheet.classList.add("open");
+        document.body.classList.add("cart-open");
+    }
+
+    // المواصفات مختصرة على البطاقة + زر "عرض كل المواصفات"
+    $$(".product-card").forEach(function (card) {
+        const specs = specsOf(card);
+        const h3 = $("h3", card);
+
+        if (specs && !$(".more-btn", card)) {
+            specs.insertAdjacentElement("afterend", btn("more-btn", "عرض كل المواصفات ‹", function () { openDetail(card); }));
+        }
+        if (h3) {
+            h3.style.cursor = "pointer";
+            h3.addEventListener("click", function () { openDetail(card); });
+        }
+        const img = $("img", card);
+        if (img && !document.getElementById("lightbox")) {
+            img.style.cursor = "pointer";
+            img.addEventListener("click", function () { openDetail(card); });
+        }
+    });
+
+    // إذا المواصفات قصيرة وتظهر كاملة، لا حاجة للتقصير ولا للزر
+    function fitSpecs() {
+        $$(".product-card").forEach(function (card) {
+            const specs = specsOf(card);
+            const more = $(".more-btn", card);
+            if (!specs || !more || card.style.display === "none") return;
+            const fits = specs.scrollHeight <= 68;
+            specs.classList.toggle("fits", fits);
+            more.style.display = fits ? "none" : "";
+        });
+    }
+    window.addEventListener("load", function () { setTimeout(fitSpecs, 300); });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { setTimeout(fitSpecs, 100); });
+
+    // ---------- تفاعل زر "أضف للسلة" ----------
+    const origAdd = window.addToCart;
+    if (typeof origAdd === "function") {
+        window.addToCart = function (name) {
+            origAdd(name);
+
+            let b = null;
+            try {
+                const t = window.event && window.event.target;
+                b = t && t.closest ? t.closest(".add-cart") : null;
+            } catch (e) {}
+
+            if (b && !b.dataset.busy) {
+                b.dataset.busy = "1";
+                const oldTxt = b.textContent;
+                b.textContent = "✓ تمت الإضافة";
+                b.classList.add("added");
+                setTimeout(function () {
+                    b.textContent = oldTxt;
+                    b.classList.remove("added");
+                    delete b.dataset.busy;
+                }, 1200);
+            }
+
+            $$(".top-cart, .bn-hexwrap").forEach(function (x) {
+                x.classList.remove("bump");
+                void x.offsetWidth;
+                x.classList.add("bump");
+            });
+            try { if (navigator.vibrate) navigator.vibrate(12); } catch (e) {}
+        };
+    }
+
+    // ---------- شاشة تأكيد بعد الطلب ----------
+    const tsheet = el("div", "px-sheet");
+    tsheet.id = "thanksSheet";
+    document.body.appendChild(tsheet);
+
+    function closeThanks() {
+        tsheet.classList.remove("open");
+        document.body.classList.remove("cart-open");
+    }
+
+    function finishOrder() {
+        try { cart.length = 0; saveCart(); renderCart(); } catch (e) {}
+        const ob = document.getElementById("orderBox");
+        if (ob) ob.style.display = "none";
+        closeThanks();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function showThanks(link) {
+        const n = typeof cartCount === "function" ? cartCount() : 0;
+        const t = typeof cartTotals === "function" ? cartTotals() : null;
+        const delivery = typeof selectedDelivery !== "undefined" ? selectedDelivery : 0;
+        const total = t ? t.total + delivery : 0;
+
+        tsheet.innerHTML = "";
+        const back = el("div", "px-backdrop");
+        back.addEventListener("click", closeThanks);
+
+        const box = el("div", "px-box th-box");
+        box.appendChild(el("div", "px-handle"));
+        box.appendChild(el("div", "th-ico", "✓"));
+        box.appendChild(el("h3", "th-title", "تم تجهيز طلبك 🎉"));
+        box.appendChild(el("p", "th-text", "فتحنا لك واتساب والرسالة جاهزة، اضغط «إرسال» لتأكيد الطلب معنا."));
+
+        const sum = el("div", "th-sum");
+        const a = el("div");
+        a.appendChild(el("span", "", "عدد القطع"));
+        a.appendChild(el("b", "", String(n)));
+        const b = el("div");
+        b.appendChild(el("span", "", "الإجمالي شامل التوصيل"));
+        b.appendChild(el("b", "", total + " د.ل"));
+        sum.appendChild(a);
+        sum.appendChild(b);
+        box.appendChild(sum);
+
+        if (link) {
+            const l = el("a", "th-link", "لم يفتح واتساب؟ اضغط هنا");
+            l.href = link;
+            l.target = "_blank";
+            l.rel = "noopener";
+            box.appendChild(l);
+        }
+
+        box.appendChild(btn("th-main", "تم الإرسال، ابدأ طلبًا جديدًا", finishOrder));
+        box.appendChild(btn("cart-continue", "رجوع للتسوق", closeThanks));
+
+        tsheet.appendChild(back);
+        tsheet.appendChild(box);
+        tsheet.classList.add("open");
+        document.body.classList.add("cart-open");
+    }
+
+    const origSend = window.sendWhatsApp;
+    if (typeof origSend === "function") {
+        window.sendWhatsApp = function () {
+            const wo = window.open;
+            let opened = false;
+            let link = "";
+            window.open = function (u) {
+                opened = true;
+                link = u;
+                return wo.apply(window, arguments);
+            };
+            try { origSend(); } finally { window.open = wo; }
+            if (opened) showThanks(link);
+        };
+    }
+
+    // ---------- سلة فارغة بشكل أجمل ----------
+    const ce = document.getElementById("cartEmpty");
+    if (ce) {
+        ce.innerHTML = "";
+        ce.appendChild(el("div", "ce-ico", "🛒"));
+        ce.appendChild(el("b", "", "سلتك فارغة"));
+        ce.appendChild(el("p", "", "أضف منتجاتك المفضلة وابدأ التسوق"));
+        ce.appendChild(btn("ce-btn", "تصفح المنتجات", function () {
+            if (typeof closeCart === "function") closeCart();
+            const s = $(".products");
+            if (s) s.scrollIntoView({ behavior: "smooth", block: "start" });
+        }));
+    }
+
+    // ---------- زر للأعلى ----------
+    const top = btn("to-top", "", function () { window.scrollTo({ top: 0, behavior: "smooth" }); });
+    top.id = "toTop";
+    top.setAttribute("aria-label", "للأعلى");
+    top.innerHTML = '<svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>';
+    document.body.appendChild(top);
+    window.addEventListener("scroll", function () {
+        top.classList.toggle("show", window.scrollY > 700);
+    }, { passive: true });
+
+    document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") { closeDetail(); closeThanks(); }
+    });
+
+})();
+
