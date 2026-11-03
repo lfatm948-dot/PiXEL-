@@ -1213,3 +1213,172 @@ body.has-nav #waFab, body.has-nav #cartFab { display: none; }
 .px-tx small { color: #888; font-size: 12px; font-weight: 600; }
 .px-go { color: #b9a6dc; font-size: 24px; line-height: 1; }
 .px-row.wa { border-color: #bdeccf; background: #f1fff6; }
+
+/* ==========================================================
+   لمسات احترافية
+   ========================================================== */
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { -webkit-font-smoothing: antialiased; }
+button, a, select, input { touch-action: manipulation; }
+::selection { background: #c9a8ff; color: #1b0a3d; }
+
+/* صور المنتجات: هيكل تحميل + ظهور تدريجي */
+.product-card img {
+    background: linear-gradient(90deg, #f3eefc 25%, #e9e0f8 37%, #f3eefc 63%);
+    background-size: 400% 100%;
+    animation: pxShimmer 1.4s ease infinite;
+}
+.product-card img.img-ok { background: none; animation: pxFade 0.5s ease both; }
+@keyframes pxShimmer { 0% { background-position: 100% 50%; } 100% { background-position: 0 50%; } }
+@keyframes pxFade { from { opacity: 0; } to { opacity: 1; } }
+
+/* مواصفات مختصرة على البطاقة */
+.product-card ul, .product-card pre {
+    max-height: 66px;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(#000 55%, transparent);
+    mask-image: linear-gradient(#000 55%, transparent);
+}
+.product-card ul.fits, .product-card pre.fits { max-height: none; -webkit-mask-image: none; mask-image: none; }
+.product-card pre {
+    margin: 0 0 4px;
+    font-family: inherit;
+    white-space: pre-wrap;
+    text-align: right;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.5;
+    color: #111;
+}
+.product-card .more-btn {
+    display: block;
+    width: auto;
+    margin: 0 0 8px;
+    padding: 2px 0;
+    background: none;
+    color: #7b2cff;
+    font-size: 13px;
+    font-weight: 800;
+    text-align: right;
+}
+
+/* تفاعل زر الإضافة + اهتزاز عدّاد السلة */
+.product-card .add-cart.added { background: #1e9e57; }
+@keyframes pxBump { 0% { transform: scale(1); } 40% { transform: scale(1.22); } 100% { transform: scale(1); } }
+.bump { animation: pxBump 0.4s ease; }
+
+/* شريط التصنيفات يثبت أثناء التمرير */
+.products .cat-bar {
+    position: sticky;
+    top: 60px;
+    z-index: 40;
+    margin: 0 -4% 6px;
+    padding: 8px 4% 10px;
+    background: linear-gradient(#7b2cff 80%, rgba(123,44,255,0));
+}
+
+/* ===== نافذة تفاصيل المنتج ===== */
+.ds-box { max-height: 90vh; overflow-y: auto; overscroll-behavior: contain; }
+.ds-img { margin: 10px 0; padding: 8px; border-radius: 16px; background: #f6f1ff; }
+.ds-img img { display: block; width: 100%; height: 230px; object-fit: contain; }
+.ds-price { margin-bottom: 8px; color: #7b2cff; font-size: 24px; font-weight: 900; }
+.ds-specs {
+    margin: 0 0 14px;
+    padding: 0;
+    list-style: none;
+    color: #222;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.9;
+    text-align: right;
+    white-space: normal;
+}
+pre.ds-specs { white-space: pre-wrap; }
+.ds-specs li { margin-bottom: 4px; }
+.ds-actions { position: sticky; bottom: 0; display: flex; gap: 8px; padding-top: 8px; background: #fff; }
+.ds-add {
+    flex: 1;
+    height: 46px;
+    border: none;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #9a55ff, #7b2cff 60%, #c026d3);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+}
+.ds-add:disabled { background: #c9c4d6; cursor: not-allowed; }
+.ds-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+    border: 1.5px solid #e2d9f3;
+    border-radius: 14px;
+    background: #faf7ff;
+    color: #7b2cff;
+    font-size: 18px;
+    cursor: pointer;
+}
+.ds-icon.fav { border-color: #ffc9d7; background: #fff0f4; color: #e0245e; }
+.ds-icon svg { width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.ds-icon.on svg { fill: #e0245e; }
+
+/* ===== شاشة تأكيد الطلب ===== */
+.th-box { text-align: center; }
+.th-ico { display: flex; align-items: center; justify-content: center; width: 72px; height: 72px; margin: 6px auto 10px; border-radius: 50%; background: #e6fbef; color: #1e9e57; font-size: 38px; font-weight: 900; }
+.th-title { color: #222; font-size: 21px; font-weight: 900; }
+.th-text { margin: 6px 0 14px; color: #666; font-size: 14px; line-height: 1.8; }
+.th-sum { display: flex; gap: 8px; margin-bottom: 12px; }
+.th-sum > div { flex: 1; padding: 10px 6px; border-radius: 14px; background: #faf7ff; border: 1px solid #efe6fb; }
+.th-sum span { display: block; color: #888; font-size: 12px; font-weight: 700; }
+.th-sum b { color: #7b2cff; font-size: 17px; font-weight: 900; }
+.th-link { display: block; margin-bottom: 12px; color: #1e9e57; font-size: 13px; font-weight: 800; text-decoration: underline; }
+.th-main {
+    width: 100%;
+    height: 46px;
+    border: none;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #9a55ff, #7b2cff 60%, #c026d3);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 8px 18px rgba(123,44,255,0.35);
+}
+
+/* ===== سلة فارغة ===== */
+.cart-empty { text-align: center; }
+.ce-ico { font-size: 54px; line-height: 1.2; }
+.cart-empty b { display: block; color: #222; font-size: 17px; font-weight: 900; }
+.cart-empty p { margin: 4px 0 14px; color: #888; font-size: 13px; }
+.ce-btn { padding: 9px 22px; border: none; border-radius: 14px; background: #7b2cff; color: #fff; font-size: 14px; font-weight: 800; cursor: pointer; }
+
+/* ===== زر للأعلى ===== */
+.to-top {
+    position: fixed;
+    right: 14px;
+    bottom: calc(100px + env(safe-area-inset-bottom, 0px));
+    z-index: 90;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: #fff;
+    color: #7b2cff;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.28);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(10px);
+    transition: opacity 0.25s, transform 0.25s;
+    cursor: pointer;
+}
+.to-top.show { opacity: 1; pointer-events: auto; transform: none; }
+.to-top svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
