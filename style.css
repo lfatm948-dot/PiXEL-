@@ -1426,3 +1426,9 @@ pre.ds-specs { white-space: pre-wrap; }
 .product-card.sold-out pre,
 .product-card.sold-out h4 { opacity: 0.55; }
 .product-card.sold-out .add-cart:disabled { background: #c9c4d6; color: #fff; cursor: not-allowed; }
+
+/* ===== حسابات متعددة ===== */
+.bk-pick { margin-bottom: 2px; color: #777; font-size: 12px; font-weight: 700; }
+.bk-card { margin-top: 8px; padding: 8px 10px; border: 1.5px solid #e3d7f7; border-radius: 12px; background: #fff; cursor: pointer; }
+.bk-card.on { border-color: #7b2cff; box-shadow: 0 0 0 3px rgba(123,44,255,0.12); }
+.bk-card .bk-name { margin-bottom: 4px; font-size: 17px; }
