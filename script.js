@@ -1979,4 +1979,280 @@ function setFavOnly(on) {
     }
 
 })();
+// ==========================================================
+// الحوالة المصرفية: بيانات الحساب + رفع صورة الإيصال (اختياري)
+// (كتلة مستقلة: الصقها في آخر script.js، بعد كل الكتل السابقة)
+// ==========================================================
+(function pxBank() {
 
+    // ⚙️ حساباتك المصرفية: اترك الحقل فاضيًا ("") وما يظهر، وتقدر تضيف حساب ثالث بنفس الشكل
+    const BANKS = [
+        { name: "المصرف التجاري الوطني", holder: "", account: "091011872440014", iban: "" },
+        { name: "مصرف النوران", holder: "", account: "", iban: "LY59024005010089051020501" }
+    ];
+
+    // ⚙️ مفتاح imgbb لرفع صور الإيصالات (مجاني من api.imgbb.com)
+    // لو تركته فاضيًا: يُطلب من الزبون إرفاق الإيصال داخل محادثة واتساب بدل رفعه من الموقع
+    const IMGBB_KEY = "";
+
+    const select = document.getElementById("payment");
+    if (!select) return;
+
+    function $(s, r) { return (r || document).querySelector(s); }
+
+    function el(tag, cls, txt) {
+        const e = document.createElement(tag);
+        if (cls) e.className = cls;
+        if (txt !== undefined) e.textContent = txt;
+        return e;
+    }
+
+    function btn(cls, txt, fn) {
+        const b = el("button", cls, txt);
+        b.type = "button";
+        if (fn) b.addEventListener("click", fn);
+        return b;
+    }
+
+    function isBank() { return /حوال|تحويل|bank/i.test(select.value); }
+
+    function copyText(text, msg) {
+        function done() { if (typeof toast === "function") toast(msg); }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(done, fallback);
+        } else {
+            fallback();
+        }
+        function fallback() {
+            const t = document.createElement("textarea");
+            t.value = text;
+            t.style.position = "fixed";
+            t.style.opacity = "0";
+            document.body.appendChild(t);
+            t.select();
+            try { document.execCommand("copy"); done(); } catch (e) {}
+            t.remove();
+        }
+    }
+
+    // ---------- الصندوق ----------
+    const box = el("div", "bank-box");
+    box.id = "bankBox";
+    box.style.display = "none";
+
+    box.appendChild(el("div", "bk-title", "🏦 بيانات الحوالة المصرفية"));
+    if (BANKS.length > 1) box.appendChild(el("div", "bk-pick", "اضغط على المصرف اللي بتحوّل له (اختياري)"));
+
+    let chosen = -1;
+    const cards = [];
+
+    BANKS.forEach(function (bk, i) {
+        const card = el("div", "bk-card");
+        card.appendChild(el("div", "bk-name", bk.name));
+
+        function addRow(label, value, copyMsg) {
+            if (!value) return;
+            const r = el("div", "bk-row");
+            r.appendChild(el("span", "bk-lbl", label));
+            r.appendChild(el("span", "bk-val", value));
+            if (copyMsg) r.appendChild(btn("bk-copy", "نسخ", function () { copyText(value, copyMsg); }));
+            card.appendChild(r);
+        }
+        addRow("اسم صاحب الحساب:", bk.holder);
+        addRow("رقم الحساب:", bk.account, "تم نسخ رقم الحساب ✓");
+        addRow("الآيبان:", bk.iban, "تم نسخ الآيبان ✓");
+
+        if (BANKS.length > 1) {
+            card.addEventListener("click", function (e) {
+                if (e.target.closest(".bk-copy")) return;
+                chosen = (chosen === i) ? -1 : i;
+                cards.forEach(function (c, k) { c.classList.toggle("on", k === chosen); });
+            });
+        }
+
+        cards.push(card);
+        box.appendChild(card);
+    });
+
+    box.appendChild(el("div", "bk-note", "ℹ️ التحويل الآن اختياري: تقدر تحوّل وترفع صورة الإيصال هنا، أو تحوّل عند الاستلام."));
+
+    let file = null;
+    let thumbUrl = "";
+    let input = null;
+    let prev = null;
+    let msgEl = null;
+
+    function setMsg(text, cls) {
+        if (!msgEl) return;
+        msgEl.textContent = text;
+        msgEl.className = "bk-msg" + (cls ? " " + cls : "");
+    }
+
+    function clearFile() {
+        file = null;
+        if (thumbUrl) { URL.revokeObjectURL(thumbUrl); thumbUrl = ""; }
+        if (input) input.value = "";
+        if (prev) prev.style.display = "none";
+        setMsg("");
+    }
+
+    if (IMGBB_KEY) {
+        input = el("input", "bk-file");
+        input.type = "file";
+        input.accept = "image/*";
+        input.id = "rcptInput";
+
+        const lab = el("label", "bk-up");
+        lab.htmlFor = "rcptInput";
+        lab.appendChild(el("span", "bk-up-ico", "📎"));
+        lab.appendChild(el("span", "", "أرفق صورة إيصال التحويل (اختياري)"));
+
+        prev = el("div", "bk-prev");
+        prev.style.display = "none";
+        const thumb = el("img", "bk-thumb");
+        thumb.alt = "";
+        const fname = el("span", "bk-fname");
+        prev.appendChild(thumb);
+        prev.appendChild(fname);
+        prev.appendChild(btn("bk-x", "✕", clearFile));
+
+        msgEl = el("div", "bk-msg");
+
+        input.addEventListener("change", function () {
+            const f = input.files && input.files[0];
+            if (!f) return;
+            if (f.type && f.type.indexOf("image/") !== 0) {
+                clearFile();
+                setMsg("اختر صورة فقط (JPG أو PNG)", "err");
+                return;
+            }
+            clearFile();
+            file = f;
+            thumbUrl = URL.createObjectURL(f);
+            thumb.src = thumbUrl;
+            fname.textContent = f.name;
+            prev.style.display = "flex";
+            setMsg("✅ تم اختيار الصورة، وستُرسل مع طلبك", "ok");
+        });
+
+        box.appendChild(input);
+        box.appendChild(lab);
+        box.appendChild(prev);
+        box.appendChild(msgEl);
+    } else {
+        box.appendChild(el("div", "bk-hint", "📎 بعد فتح واتساب، أرفق صورة إيصال التحويل في المحادثة (اختياري)."));
+    }
+
+    select.insertAdjacentElement("afterend", box);
+
+    function sync() { box.style.display = isBank() ? "block" : "none"; }
+    select.addEventListener("change", sync);
+    sync();
+
+    // ---------- رفع الإيصال (مع ضغط الصورة) ----------
+    function compress(f) {
+        return new Promise(function (resolve, reject) {
+            const img = new Image();
+            const url = URL.createObjectURL(f);
+            img.onload = function () {
+                const max = 1600;
+                const s = Math.min(1, max / Math.max(img.naturalWidth, img.naturalHeight));
+                const w = Math.max(1, Math.round(img.naturalWidth * s));
+                const h = Math.max(1, Math.round(img.naturalHeight * s));
+                const c = document.createElement("canvas");
+                c.width = w;
+                c.height = h;
+                c.getContext("2d").drawImage(img, 0, 0, w, h);
+                URL.revokeObjectURL(url);
+                resolve(c.toDataURL("image/jpeg", 0.82).split(",")[1]);
+            };
+            img.onerror = function () { URL.revokeObjectURL(url); reject(new Error("img")); };
+            img.src = url;
+        });
+    }
+
+    function uploadReceipt(f) {
+        return compress(f).then(function (b64) {
+            const fd = new FormData();
+            fd.append("image", b64);
+            const ctl = typeof AbortController !== "undefined" ? new AbortController() : null;
+            const timer = setTimeout(function () { if (ctl) ctl.abort(); }, 30000);
+            return fetch("https://api.imgbb.com/1/upload?key=" + encodeURIComponent(IMGBB_KEY) + "&expiration=2592000", {
+                method: "POST",
+                body: fd,
+                signal: ctl ? ctl.signal : undefined
+            }).then(function (r) { clearTimeout(timer); return r.json(); });
+        }).then(function (j) {
+            if (j && j.success && j.data && j.data.url) return j.data.url;
+            throw new Error("upload");
+        });
+    }
+
+    // ---------- تعديل رسالة الواتساب عند الحوالة المصرفية ----------
+    const prevSend = window.sendWhatsApp;
+    if (typeof prevSend !== "function") return;
+
+    function val(id) { const e = document.getElementById(id); return e ? e.value.trim() : ""; }
+
+    function send(receiptUrl, targetWin) {
+        const wo = window.open;
+        let finalUrl = "";
+
+        window.open = function (u) {
+            let url = u;
+            try {
+                const m = String(u).match(/^(https:\/\/wa\.me\/[^?]*\?text=)([\s\S]*)$/);
+                if (m) {
+                    let text = decodeURIComponent(m[2]);
+                    if (chosen >= 0) text += "\n🏦 المصرف: " + BANKS[chosen].name;
+                    text += receiptUrl
+                        ? "\n🧾 إيصال التحويل: " + receiptUrl
+                        : "\n🏦 التحويل: عند الاستلام (أو سيرسل الإيصال في المحادثة)";
+                    url = m[1] + encodeURIComponent(text);
+                }
+            } catch (e) {}
+            finalUrl = url;
+
+            if (targetWin && !targetWin.closed) {
+                targetWin.location.href = url;
+                return targetWin;
+            }
+            return wo.call(window, url, "_blank");
+        };
+
+        try { prevSend(); } finally { window.open = wo; }
+
+        // رابط احتياطي في شاشة التأكيد يحمل نفس الرسالة المعدّلة
+        const l = $("#thanksSheet .th-link");
+        if (l && finalUrl) l.href = finalUrl;
+        if (finalUrl) clearFile();
+    }
+
+    window.sendWhatsApp = function () {
+        if (!isBank()) { prevSend(); return; }
+
+        const valid = val("name") && val("phone") && typeof selectedCity !== "undefined" && selectedCity && typeof cart !== "undefined" && cart.length;
+        if (!file || !IMGBB_KEY || !valid) { send(null, null); return; }
+
+        // نفتح نافذة واتساب فورًا (داخل الضغطة) ثم نملؤها بعد رفع الإيصال
+        let w = null;
+        try { w = window.open("about:blank", "_blank"); } catch (e) {}
+
+        const submit = $(".ob-submit");
+        const oldTxt = submit ? submit.textContent : "";
+        if (submit) { submit.disabled = true; submit.textContent = "جاري رفع الإيصال..."; }
+        setMsg("⏳ جاري رفع الإيصال، لحظات...", "");
+
+        function finish() { if (submit) { submit.disabled = false; submit.textContent = oldTxt; } }
+
+        uploadReceipt(file).then(function (url) {
+            finish();
+            send(url, w);
+        }).catch(function () {
+            finish();
+            setMsg("تعذّر رفع الإيصال، أكملنا طلبك بدونه، وتقدر ترفقه داخل محادثة واتساب.", "err");
+            send(null, w);
+        });
+    };
+
+})();
