@@ -1947,3 +1947,36 @@ function setFavOnly(on) {
 
 })();
 
+// ==========================================================
+// نفدت الكمية: يعطّل زر الإضافة للمنتجات اللي عليها الكلاس sold-out
+// ويحذفها من سلة أي زبون كان أضافها قبل ما تنفد
+// ==========================================================
+(function pxSoldOut() {
+
+    const soldNames = new Set();
+
+    document.querySelectorAll(".product-card.sold-out").forEach(function (card) {
+        const b = card.querySelector(".add-cart");
+        if (!b) return;
+
+        b.disabled = true;
+        b.textContent = "نفدت الكمية";
+
+        const m = (b.getAttribute("onclick") || "").match(/addToCart\('(.*)'\)/);
+        if (m) soldNames.add(m[1]);
+    });
+
+    if (soldNames.size && typeof cart !== "undefined") {
+        const before = cart.length;
+        for (let i = cart.length - 1; i >= 0; i--) {
+            if (soldNames.has(cart[i].name)) cart.splice(i, 1);
+        }
+        if (cart.length !== before) {
+            saveCart();
+            renderCart();
+            toast("تم حذف منتج نفدت كميته من سلتك");
+        }
+    }
+
+})();
+
