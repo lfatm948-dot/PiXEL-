@@ -1382,3 +1382,47 @@ pre.ds-specs { white-space: pre-wrap; }
 }
 .to-top.show { opacity: 1; pointer-events: auto; transform: none; }
 .to-top svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ==========================================================
+   نفدت الكمية: أضف الكلاس sold-out على بطاقة المنتج
+   ========================================================== */
+.product-card.sold-out { position: relative; }
+
+/* إطار أحمر + خط أحمر قطري على كامل البطاقة */
+.product-card.sold-out::before {
+    content: "";
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    z-index: 3;
+    box-sizing: border-box;
+    border: 2px solid #e53935;
+    border-radius: 16px;
+    background: linear-gradient(to top right, transparent calc(50% - 2px), #e53935 calc(50% - 2px), #e53935 calc(50% + 2px), transparent calc(50% + 2px));
+    pointer-events: none;
+}
+
+/* شريط "نفدت الكمية" أعلى البطاقة */
+.product-card.sold-out::after {
+    content: "نفدت الكمية";
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 4;
+    padding: 5px 18px;
+    border-radius: 20px;
+    background: #e53935;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 900;
+    white-space: nowrap;
+    box-shadow: 0 4px 12px rgba(229,57,53,0.45);
+    pointer-events: none;
+}
+
+.product-card.sold-out img { filter: grayscale(1); opacity: 0.5; }
+.product-card.sold-out h3,
+.product-card.sold-out ul,
+.product-card.sold-out pre,
+.product-card.sold-out h4 { opacity: 0.55; }
+.product-card.sold-out .add-cart:disabled { background: #c9c4d6; color: #fff; cursor: not-allowed; }
