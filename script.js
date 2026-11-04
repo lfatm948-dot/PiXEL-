@@ -1993,7 +1993,7 @@ function setFavOnly(on) {
 
     // ⚙️ مفتاح imgbb لرفع صور الإيصالات (مجاني من api.imgbb.com)
     // لو تركته فاضيًا: يُطلب من الزبون إرفاق الإيصال داخل محادثة واتساب بدل رفعه من الموقع
-    const IMGBB_KEY = "";
+    const IMGBB_KEY = "cac8af036e10b4c36a700d7252ec1b14";
 
     const select = document.getElementById("payment");
     if (!select) return;
