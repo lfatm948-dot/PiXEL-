@@ -2256,3 +2256,145 @@ function setFavOnly(on) {
     };
 
 })();
+
+// ==========================================================
+// مع كل طلب + رؤيتنا ورسالتنا وقيمنا وشخصية العلامة
+// (كتلة مستقلة: الصقها في آخر script.js)
+// ==========================================================
+(function pxBrand() {
+
+    // ⚙️ مع كل طلب (عدّل النصوص كما تريد، ويمكنك إضافة تفاصيل مثل مدة الضمان)
+    const PERKS = [
+        { icon: "📘", title: "شرح استخدام وتشغيل", text: "شرح واضح لاستخدام المنتج وتشغيله يرافق طلبك." },
+        { icon: "🛡️", title: "ضمان عيوب مصنعية", text: "نضمن لك منتجك ضد العيوب المصنعية." },
+        { icon: "🤝", title: "متابعة بعد البيع", text: "نتابع معك بعد الاستلام ونساعدك في أي استفسار." }
+    ];
+
+    // ⚙️ هوية العلامة
+    const VISION = "أن تصبح PIXEL وجهة موثوقة لصناع المحتوى في ليبيا للحصول على معدات تساعدهم على تطوير أعمالهم.";
+    const MISSION = "توفير معدات مختارة بعناية، وتجربة شراء احترافية، ومساعدة صناع المحتوى في اختيار الأدوات المناسبة لهم.";
+    const VALUES = [
+        ["💎", "الجودة", "لا نبيع منتجاً لا نثق به."],
+        ["🤝", "الثقة", "الوضوح والصدق في كل تعامل."],
+        ["🔍", "الاحترافية", "نهتم بالتفاصيل الصغيرة."],
+        ["🚀", "التطور", "نواكب أدوات صناعة المحتوى."],
+        ["💬", "خدمة العميل", "علاقتنا بالعميل لا تنتهي عند البيع."]
+    ];
+    const PERSONALITY = ["احترافية", "عصرية", "تقنية", "موثوقة", "قريبة من صانع المحتوى"];
+
+    function $(s, r) { return (r || document).querySelector(s); }
+
+    function el(tag, cls, txt) {
+        const e = document.createElement(tag);
+        if (cls) e.className = cls;
+        if (txt !== undefined) e.textContent = txt;
+        return e;
+    }
+
+    function go(node) {
+        if (node) node.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    // ---------- مع كل طلب ----------
+    const perks = el("section", "perks reveal");
+    perks.id = "perks";
+    perks.appendChild(el("h2", "", "مع كل طلب 🎁"));
+
+    const list = el("div", "perk-list");
+    PERKS.forEach(function (p, i) {
+        const c = el("div", "perk");
+        c.appendChild(el("span", "perk-ico", p.icon));
+        const t = el("div", "perk-tx");
+        t.appendChild(el("b", "", p.title));
+        t.appendChild(el("p", "", p.text));
+        c.appendChild(t);
+        c.appendChild(el("span", "perk-n", String(i + 1)));
+        list.appendChild(c);
+    });
+    perks.appendChild(list);
+
+    const more = el("button", "perk-more", "تعرّف على PIXEL ‹");
+    more.type = "button";
+    more.addEventListener("click", function () { go(document.getElementById("brand") || document.getElementById("about")); });
+    perks.appendChild(more);
+
+    const why = document.getElementById("why");
+    const products = $(".products");
+    if (why) why.insertAdjacentElement("afterend", perks);
+    else if (products) products.parentNode.insertBefore(perks, products);
+
+    // ---------- شريط صغير داخل بوكس الطلب ----------
+    const note = $("#orderBox .ob-note");
+    if (note) {
+        const strip = el("div", "perk-strip");
+        strip.appendChild(el("div", "ps-head", "🎁 مع طلبك"));
+        const chips = el("div", "ps-chips");
+        PERKS.forEach(function (p) { chips.appendChild(el("span", "ps-chip", p.icon + " " + p.title)); });
+        strip.appendChild(chips);
+        note.insertAdjacentElement("beforebegin", strip);
+    }
+
+    // ---------- رؤيتنا ورسالتنا وقيمنا ----------
+    const brand = el("section", "brand reveal");
+    brand.id = "brand";
+    brand.appendChild(el("h2", "", "هوية PIXEL"));
+
+    function bigCard(icon, title, tag, text) {
+        const c = el("div", "bv-card");
+        const head = el("div", "bv-head");
+        head.appendChild(el("span", "bv-ico", icon));
+        const t = el("div", "bv-t");
+        t.appendChild(el("b", "", title));
+        t.appendChild(el("small", "", tag));
+        head.appendChild(t);
+        c.appendChild(head);
+        c.appendChild(el("p", "", text));
+        return c;
+    }
+    brand.appendChild(bigCard("🔭", "رؤيتنا", "VISION", VISION));
+    brand.appendChild(bigCard("🎯", "رسالتنا", "MISSION", MISSION));
+
+    const vh = el("div", "bv-sub");
+    vh.appendChild(el("b", "", "قيمنا"));
+    vh.appendChild(el("small", "", "VALUES"));
+    brand.appendChild(vh);
+
+    const grid = el("div", "val-grid");
+    VALUES.forEach(function (v) {
+        const c = el("div", "val-card");
+        c.appendChild(el("span", "val-ico", v[0]));
+        c.appendChild(el("b", "", v[1]));
+        c.appendChild(el("p", "", v[2]));
+        grid.appendChild(c);
+    });
+    brand.appendChild(grid);
+
+    const ph = el("div", "bv-sub");
+    ph.appendChild(el("b", "", "شخصية العلامة"));
+    ph.appendChild(el("small", "", "BRAND PERSONALITY"));
+    brand.appendChild(ph);
+
+    const chips = el("div", "pers-chips");
+    PERSONALITY.forEach(function (w) { chips.appendChild(el("span", "pers-chip", w)); });
+    brand.appendChild(chips);
+
+    const about = document.getElementById("about");
+    const contact = document.getElementById("contact");
+    if (about) about.insertAdjacentElement("afterend", brand);
+    else if (contact) contact.parentNode.insertBefore(brand, contact);
+
+    // ---------- ظهور تدريجي ----------
+    const items = [perks, brand];
+    if ("IntersectionObserver" in window) {
+        const io = new IntersectionObserver(function (es) {
+            es.forEach(function (en) {
+                if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
+            });
+        }, { threshold: 0.08 });
+        items.forEach(function (s) { io.observe(s); });
+    } else {
+        items.forEach(function (s) { s.classList.add("in"); });
+    }
+
+})();
+
