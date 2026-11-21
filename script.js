@@ -108,11 +108,11 @@ function cartCount() {
     return cart.reduce(function (s, i) { return s + i.qty; }, 0);
 }
 
-// نسبة الخصم: قطعتين = 4% ، ثلاث قطع أو أكثر = 6%
+// نسبة الخصم: قطعتين = 2% ، ثلاث قطع أو أكثر = 4%
 function cartDiscountPct() {
     const n = cartCount();
-    if (n >= 3) return 6;
-    if (n === 2) return 4;
+    if (n >= 3) return 4;
+    if (n === 2) return 2;
     return 0;
 }
 
@@ -143,9 +143,9 @@ function showPrice(el, t) {
 function discountNote() {
     const n = cartCount();
     if (n === 0) return "";
-    if (n === 1) return "🛍️ أضف منتجًا ثانيًا واحصل على خصم 4%";
-    if (n === 2) return "🎉 حصلت على خصم 4% — أضف قطعة ثالثة لتحصل على خصم 6%";
-    return "🎉 حصلت على أعلى خصم: 6%";
+    if (n === 1) return "🛍️ أضف منتجًا ثانيًا واحصل على خصم2%";
+    if (n === 2) return "🎉 حصلت على خصم 4% — أضف قطعة ثالثة لتحصل على خصم 4%";
+    return "🎉 حصلت على أعلى خصم: 4%";
 }
 
 // تحديث ملخص السعر داخل بوكس الطلب
@@ -710,7 +710,7 @@ window.addEventListener("load", function () {
         if (!card.dataset.cat) {
             const t = (h3 ? h3.textContent : "").toLowerCase();
             let cat = "light";
-            if (/mic|earbuds|مايك|سماع/.test(t)) cat = "audio";
+            if (/mic|Airbods|مايك/.test(t)) cat = "audio";
             else if (/power bank|حاملة|ستاند رقبة/.test(t)) cat = "acc";
             else if (/tripod|ترايبود|live-k7|pk-?99|pk10/.test(t)) cat = "tripod";
             card.dataset.cat = cat;
@@ -928,7 +928,7 @@ function setFavOnly(on) {
     const why = [
         ["🚚", "توصيل لجميع المدن", "وسعر التوصيل يظهر لك قبل تأكيد الطلب"],
         ["🛡️", "منتجات مضمونة", "جودة عالية ومنتجات مختارة بعناية"],
-        ["🎁", "خصم على الكمية", "4% لقطعتين و6% لثلاث قطع أو أكثر"],
+        ["🎁", "خصم على الكمية", "2% لقطعتين و4% لثلاث قطع أو أكثر"],
         ["💬", "دعم عبر الواتساب", "تواصل معنا لأي استفسار قبل الطلب"]
     ];
 
