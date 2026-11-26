@@ -2405,7 +2405,9 @@ function setFavOnly(on) {
     const END   = new Date("2026-11-28T23:59:59+02:00");     // نهاية العرض
 
     const now = new Date();
-    if (now < START || now > END) return; // خارج الفترة: يبقى الخصم القديم 2%/4%
+const preview = /[?&]bf=1\b/.test(location.search);
+if (!preview && (now < START || now > END)) return;
+
 
     // ---------- استبدال منطق الخصم ----------
     window.cartDiscountPct = function () {
