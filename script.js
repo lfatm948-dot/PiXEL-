@@ -2404,7 +2404,7 @@ function setFavOnly(on) {
 (function pxPromo() {
 
     // ⚙️ نسبة الخصم
-    const PROMO_PCT = 15;
+    const PROMO_PCT = 40;
 
     // ⚙️ إيقاف تلقائي اختياري: اكتب تاريخ ووقت النهاية، ويتوقف العرض لحاله بعده
     // مثال: const PROMO_END = "2026-11-29T23:59:00";
