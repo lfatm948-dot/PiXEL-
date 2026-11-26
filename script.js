@@ -2394,6 +2394,82 @@ function setFavOnly(on) {
         items.forEach(function (s) { io.observe(s); });
     } else {
         items.forEach(function (s) { s.classList.add("in"); });
+        // ==========================================================
+// 🖤 عرض الجمعة البيضاء — خصم على كل المنتجات داخل السلة
+// الصق هذه الكتلة في آخر script.js. للإلغاء: احذفها بالكامل.
+// ==========================================================
+(function pxBlackFriday() {
+
+    const SALE_PERCENT = 30;                                 // نسبة الخصم
+    const START = new Date("2026-11-27T00:00:00+02:00");     // بداية العرض (توقيت ليبيا)
+    const END   = new Date("2026-11-28T23:59:59+02:00");     // نهاية العرض
+
+    const now = new Date();
+    if (now < START || now > END) return; // خارج الفترة: يبقى الخصم القديم 2%/4%
+
+    // ---------- استبدال منطق الخصم ----------
+    window.cartDiscountPct = function () {
+        return cartCount() > 0 ? SALE_PERCENT : 0;
+    };
+
+    window.discountNote = function () {
+        if (cartCount() === 0) return "";
+        return "🖤 عرض الجمعة البيضاء: خصم " + SALE_PERCENT + "% على جميع المنتجات";
+    };
+
+    // ---------- تحديث النصوص الظاهرة في الموقع ----------
+    function $(s, r) { return (r || document).querySelector(s); }
+    function $$(s, r) { return Array.from((r || document).querySelectorAll(s)); }
+
+    // البانر
+    const slide = $(".promo-slide.b2");
+    if (slide) {
+        const h = $("h3", slide), p = $("p", slide);
+        if (h) h.textContent = "الجمعة البيضاء 🖤";
+        if (p) p.textContent = "خصم " + SALE_PERCENT + "% على جميع المنتجات • يظهر في السلة";
+    }
+
+    // قسم العروض: بطاقة واحدة بدل 2% و4%
+    const grid = $("#offers .offer-grid");
+    if (grid) {
+        grid.innerHTML = "";
+        const t = document.createElement("div");
+        t.className = "offer-tile";
+        t.style.gridColumn = "1 / -1";
+        t.innerHTML = '<div class="offer-pct">' + SALE_PERCENT + '<small>%</small></div>' +
+                      '<div class="offer-lbl">خصم الجمعة البيضاء 🖤</div>' +
+                      '<p>على جميع المنتجات • يُطبّق تلقائيًا في السلة</p>';
+        grid.appendChild(t);
+    }
+
+    // بطاقة "خصم على الكمية" في لماذا PIXEL
+    $$("#why .why-card").forEach(function (c) {
+        const b = $("b", c), p = $("p", c);
+        if (b && p && /خصم/.test(b.textContent)) {
+            b.textContent = "عرض الجمعة البيضاء";
+            p.textContent = "خصم " + SALE_PERCENT + "% على جميع المنتجات";
+        }
+    });
+
+    // حالة العروض (تتحدث مع السلة)
+    const baseBadge = window.updateCartBadge;
+    window.updateCartBadge = function () {
+        if (typeof baseBadge === "function") baseBadge();
+        const s = document.getElementById("offersStatus");
+        if (s) {
+            s.textContent = cartCount() === 0
+                ? "🛍️ أضف أي منتج لسلتك وسيظهر خصم " + SALE_PERCENT + "% مباشرة"
+                : "✅ خصم الجمعة البيضاء " + SALE_PERCENT + "% مُطبّق على سلتك";
+        }
+    };
+
+    // ---------- تحديث العرض الحالي ----------
+    try { renderCart(); } catch (e) {}
+    try { updateOrderSummary(); } catch (e) {}
+    window.updateCartBadge();
+
+})();
+
     }
 
 })();
