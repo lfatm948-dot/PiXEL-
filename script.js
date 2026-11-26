@@ -2394,3 +2394,5 @@ function setFavOnly(on) {
         items.forEach(function (s) { io.observe(s); });
     } else {
         items.forEach(function (s) { s.classList.add("in"); });
+    }
+})();
