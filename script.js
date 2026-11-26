@@ -2394,85 +2394,91 @@ function setFavOnly(on) {
         items.forEach(function (s) { io.observe(s); });
     } else {
         items.forEach(function (s) { s.classList.add("in"); });
-        // ==========================================================
-// 🖤 عرض الجمعة البيضاء — خصم على كل المنتجات داخل السلة
-// الصق هذه الكتلة في آخر script.js. للإلغاء: احذفها بالكامل.
+        
 // ==========================================================
-(function pxBlackFriday() {
+// 🔥 عرض مؤقت: خصم 15% على كل الطلبات (أي عدد قطع)
+// لإيقاف العرض: احذف هذه الكتلة كاملة (من هذا السطر إلى آخرها)، وترجع التخفيضات القديمة تلقائيًا
+// ==========================================================
+(function pxPromo() {
 
-    const SALE_PERCENT = 30;                                 // نسبة الخصم
-    const START = new Date("2026-11-27T00:00:00+02:00");     // بداية العرض (توقيت ليبيا)
-    const END   = new Date("2026-11-28T23:59:59+02:00");     // نهاية العرض
+    // ⚙️ نسبة الخصم
+    const PROMO_PCT = 15;
 
-    const now = new Date();
-const preview = /[?&]bf=1\b/.test(location.search);
-if (!preview && (now < START || now > END)) return;
+    // ⚙️ إيقاف تلقائي اختياري: اكتب تاريخ ووقت النهاية، ويتوقف العرض لحاله بعده
+    // مثال: const PROMO_END = "2026-11-29T23:59:00";
+    const PROMO_END = "";
 
+    if (PROMO_END && Date.now() > new Date(PROMO_END).getTime()) return;
 
-    // ---------- استبدال منطق الخصم ----------
-    window.cartDiscountPct = function () {
-        return cartCount() > 0 ? SALE_PERCENT : 0;
-    };
-
-    window.discountNote = function () {
-        if (cartCount() === 0) return "";
-        return "🖤 عرض الجمعة البيضاء: خصم " + SALE_PERCENT + "% على جميع المنتجات";
-    };
-
-    // ---------- تحديث النصوص الظاهرة في الموقع ----------
     function $(s, r) { return (r || document).querySelector(s); }
     function $$(s, r) { return Array.from((r || document).querySelectorAll(s)); }
 
-    // البانر
-    const slide = $(".promo-slide.b2");
-    if (slide) {
-        const h = $("h3", slide), p = $("p", slide);
-        if (h) h.textContent = "الجمعة البيضاء 🖤";
-        if (p) p.textContent = "خصم " + SALE_PERCENT + "% على جميع المنتجات • يظهر في السلة";
-    }
-
-    // قسم العروض: بطاقة واحدة بدل 2% و4%
-    const grid = $("#offers .offer-grid");
-    if (grid) {
-        grid.innerHTML = "";
-        const t = document.createElement("div");
-        t.className = "offer-tile";
-        t.style.gridColumn = "1 / -1";
-        t.innerHTML = '<div class="offer-pct">' + SALE_PERCENT + '<small>%</small></div>' +
-                      '<div class="offer-lbl">خصم الجمعة البيضاء 🖤</div>' +
-                      '<p>على جميع المنتجات • يُطبّق تلقائيًا في السلة</p>';
-        grid.appendChild(t);
-    }
-
-    // بطاقة "خصم على الكمية" في لماذا PIXEL
-    $$("#why .why-card").forEach(function (c) {
-        const b = $("b", c), p = $("p", c);
-        if (b && p && /خصم/.test(b.textContent)) {
-            b.textContent = "عرض الجمعة البيضاء";
-            p.textContent = "خصم " + SALE_PERCENT + "% على جميع المنتجات";
-        }
-    });
-
-    // حالة العروض (تتحدث مع السلة)
-    const baseBadge = window.updateCartBadge;
-    window.updateCartBadge = function () {
-        if (typeof baseBadge === "function") baseBadge();
-        const s = document.getElementById("offersStatus");
-        if (s) {
-            s.textContent = cartCount() === 0
-                ? "🛍️ أضف أي منتج لسلتك وسيظهر خصم " + SALE_PERCENT + "% مباشرة"
-                : "✅ خصم الجمعة البيضاء " + SALE_PERCENT + "% مُطبّق على سلتك";
-        }
+    // ---------- الحساب: 15% على أي طلبية (والكود يطبّق لو كان أعلى من 15%) ----------
+    window.qtyDiscountPct = function () {
+        return (typeof cartCount === "function" && cartCount() > 0) ? PROMO_PCT : 0;
     };
 
-    // ---------- تحديث العرض الحالي ----------
-    try { renderCart(); } catch (e) {}
-    try { updateOrderSummary(); } catch (e) {}
-    window.updateCartBadge();
+    window.cartDiscountPct = function () {
+        if (typeof cartCount !== "function" || cartCount() === 0) return 0;
+        const c = typeof couponPct === "function" ? couponPct() : 0;
+        return Math.max(PROMO_PCT, c);
+    };
 
-})();
+    window.discountNote = function () {
+        if (typeof cartCount !== "function" || cartCount() === 0) return "";
+        const c = typeof couponPct === "function" ? couponPct() : 0;
+        if (c > PROMO_PCT && typeof appliedCoupon !== "undefined" && appliedCoupon) {
+            return "✅ تم تطبيق كود " + appliedCoupon.code + ": خصم " + c + "%";
+        }
+        return "🎉 عرض لفترة محدودة: خصم " + PROMO_PCT + "% على طلبك";
+    };
 
+    // ---------- تحديث النصوص اللي تذكر الخصم القديم (حتى ما يتضارب الكلام) ----------
+    function patchTexts() {
+        // قسم العروض: بطاقة وحدة بدل بطاقتين
+        const tiles = $$("#offers .offer-tile");
+        if (tiles.length >= 2) {
+            const pct = $(".offer-pct", tiles[0]);
+            if (pct && pct.firstChild) pct.firstChild.nodeValue = String(PROMO_PCT);
+            const p = $("p", tiles[0]);
+            if (p) p.textContent = "على أي طلبية، قطعة أو أكثر";
+            tiles[1].style.display = "none";
+            tiles[0].style.gridColumn = "1 / -1";
+        }
+
+        // البانر
+        $$(".promo-slide").forEach(function (s) {
+            if (/لقطعتين/.test(s.textContent)) {
+                const h = $("h3", s), t = $("p", s);
+                if (h) h.textContent = "خصم " + PROMO_PCT + "% على كل الطلبات";
+                if (t) t.textContent = "عرض لفترة محدودة • يُطبَّق تلقائيًا في السلة";
+            }
+        });
+
+        // لماذا PIXEL
+        $$(".why-card").forEach(function (c) {
+            const b = $("b", c);
+            if (b && /خصم/.test(b.textContent)) {
+                const p = $("p", c);
+                if (p) p.textContent = "خصم " + PROMO_PCT + "% على كل الطلبات لفترة محدودة";
+            }
+        });
+
+        // الأسئلة الشائعة
+        $$("#faq details").forEach(function (d) {
+            const s = $("summary", d);
+            if (s && /خصم/.test(s.textContent)) {
+                const p = $("p", d);
+                if (p) p.textContent = "نعم، عرض لفترة محدودة: خصم " + PROMO_PCT + "% على جميع الطلبات مهما كان عدد القطع، ويظهر الخصم تلقائيًا في السلة.";
+            }
+        });
     }
 
-})();
+    patchTexts();
 
+    // ---------- إعادة رسم كل شي بالقواعد الجديدة (مهم لمن عنده سلة محفوظة) ----------
+    try { if (typeof renderCart === "function") renderCart(); } catch (e) {}
+    try { if (typeof updateOrderSummary === "function") updateOrderSummary(); } catch (e) {}
+    try { if (typeof updateCartBadge === "function") updateCartBadge(); } catch (e) {}
+
+})();
